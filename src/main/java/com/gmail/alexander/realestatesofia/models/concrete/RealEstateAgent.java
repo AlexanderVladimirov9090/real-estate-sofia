@@ -12,7 +12,7 @@ import java.util.Map;
  * <alexandervladimirov1902@gmail.com>
  */
 public class RealEstateAgent {
-    private final int id;
+    private final Long id;
     private String name;
     private String address;
     private String phone;
@@ -21,7 +21,7 @@ public class RealEstateAgent {
     private Map<RealEstate,List<Buyer>> visitedByBuyers;
 
 
-    public RealEstateAgent(int id,
+    public RealEstateAgent(Long id,
                            String name,
                            String address,
                            String phone,
