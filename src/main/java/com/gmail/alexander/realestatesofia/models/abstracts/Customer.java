@@ -1,9 +1,6 @@
 package com.gmail.alexander.realestatesofia.models.abstracts;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created on 05.07.18.
@@ -13,6 +10,8 @@ import javax.persistence.Id;
  * This is the abstract class of Customer that is extendet by Buyer and Seller conreate classes.
  */
 @Entity
+@Table(name="customers")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Customer {
 
     @Id

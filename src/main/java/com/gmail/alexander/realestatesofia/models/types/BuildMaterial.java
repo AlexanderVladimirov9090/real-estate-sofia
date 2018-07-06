@@ -8,5 +8,5 @@ package com.gmail.alexander.realestatesofia.models.types;
  * This is the type of build material that is used to construct the establishment.
  */
 public enum BuildMaterial {
-    BRICK, PANEL, MUDBRICKl;
+    EPK, BRICK, PANEL, MUDBRICKl;
 }

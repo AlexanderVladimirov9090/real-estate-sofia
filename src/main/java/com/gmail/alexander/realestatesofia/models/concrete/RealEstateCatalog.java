@@ -1,6 +1,6 @@
 package com.gmail.alexander.realestatesofia.models.concrete;
 
-import com.gmail.alexander.realestatesofia.models.abstracts.RealEstate;
+import com.gmail.alexander.realestatesofia.models.abstracts.Properties;
 
 import java.util.List;
 
@@ -12,6 +12,6 @@ import java.util.List;
  */
 public class RealEstateCatalog {
 
-    private List<RealEstate> catalog;
+    private List<Properties> catalog;
 
 }

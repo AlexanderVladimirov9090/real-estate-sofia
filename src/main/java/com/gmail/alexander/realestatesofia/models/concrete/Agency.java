@@ -1,9 +1,7 @@
 package com.gmail.alexander.realestatesofia.models.concrete;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -24,12 +22,16 @@ public class Agency {
     private String name;
     private String address;
     private String contactByPhone;
+    //This is how tell to the framework that this is not a Column of table.
+    @Transient
+    private List<RealEstateEmployee> employees;
 
-    public Agency(Long id, String name, String address, String contactByPhone) {
+    public Agency(Long id, String name, String address, String contactByPhone, List<RealEstateEmployee> employees) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.contactByPhone = contactByPhone;
+        //    this.employees = employees;
     }
 
     public Long getId() {
@@ -62,5 +64,13 @@ public class Agency {
 
     public void setContactByPhone(String contactByPhone) {
         this.contactByPhone = contactByPhone;
+    }
+
+    public List<RealEstateEmployee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<RealEstateEmployee> employees) {
+        this.employees = employees;
     }
 }
