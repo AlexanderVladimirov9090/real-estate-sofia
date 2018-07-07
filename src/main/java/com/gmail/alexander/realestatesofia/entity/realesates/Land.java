@@ -1,9 +1,9 @@
-package com.gmail.alexander.realestatesofia.models.realesates;
+package com.gmail.alexander.realestatesofia.entity.realesates;
 
-import com.gmail.alexander.realestatesofia.models.abstracts.Properties;
-import com.gmail.alexander.realestatesofia.models.concrete.RealEstateEmployee;
-import com.gmail.alexander.realestatesofia.models.types.LandType;
-import com.gmail.alexander.realestatesofia.models.types.RealEstateType;
+import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
+import com.gmail.alexander.realestatesofia.entity.concrete.RealEstateEmployee;
+import com.gmail.alexander.realestatesofia.entity.types.LandType;
+import com.gmail.alexander.realestatesofia.entity.types.RealEstateType;
 
 import javax.persistence.Entity;
 
@@ -14,7 +14,7 @@ import javax.persistence.Entity;
  * <alexandervladimirov1902@gmail.com>
  */
 @Entity
-public class Land extends Properties {
+public class Land extends Property {
     private boolean isRegulated;
     private LandType landType;
 

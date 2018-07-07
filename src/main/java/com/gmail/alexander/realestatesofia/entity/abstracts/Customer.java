@@ -1,4 +1,4 @@
-package com.gmail.alexander.realestatesofia.models.abstracts;
+package com.gmail.alexander.realestatesofia.entity.abstracts;
 
 import javax.persistence.*;
 
@@ -21,7 +21,10 @@ public abstract class Customer {
     private String phone;
     private String type;
 
-   public Customer(Long id, String name, String phone, Class type) {
+    public Customer() {
+    }
+
+    public Customer(Long id, String name, String phone, Class type) {
         this.id = id;
         this.name = name;
         this.phone = phone;

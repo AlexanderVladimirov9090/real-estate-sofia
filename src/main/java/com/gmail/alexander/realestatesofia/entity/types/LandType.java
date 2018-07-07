@@ -1,4 +1,4 @@
-package com.gmail.alexander.realestatesofia.models.types;
+package com.gmail.alexander.realestatesofia.entity.types;
 
 /**
  * Created on 05.07.18.

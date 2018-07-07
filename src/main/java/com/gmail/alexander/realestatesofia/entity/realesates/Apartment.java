@@ -1,10 +1,10 @@
-package com.gmail.alexander.realestatesofia.models.realesates;
+package com.gmail.alexander.realestatesofia.entity.realesates;
 
-import com.gmail.alexander.realestatesofia.models.abstracts.Properties;
-import com.gmail.alexander.realestatesofia.models.concrete.RealEstateEmployee;
-import com.gmail.alexander.realestatesofia.models.types.AparmentType;
-import com.gmail.alexander.realestatesofia.models.types.BuildMaterial;
-import com.gmail.alexander.realestatesofia.models.types.RealEstateType;
+import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
+import com.gmail.alexander.realestatesofia.entity.concrete.RealEstateEmployee;
+import com.gmail.alexander.realestatesofia.entity.types.AparmentType;
+import com.gmail.alexander.realestatesofia.entity.types.BuildMaterial;
+import com.gmail.alexander.realestatesofia.entity.types.RealEstateType;
 
 import javax.persistence.Entity;
 
@@ -15,7 +15,7 @@ import javax.persistence.Entity;
  * <alexandervladimirov1902@gmail.com>
  */
 @Entity
-public class Apartment extends Properties {
+public class Apartment extends Property {
     private BuildMaterial buildMaterial;
     private AparmentType aparmentType;
 

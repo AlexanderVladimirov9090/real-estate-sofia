@@ -1,8 +1,8 @@
-package com.gmail.alexander.realestatesofia.models.concrete;
+package com.gmail.alexander.realestatesofia.entity.concrete;
 
-import com.gmail.alexander.realestatesofia.models.abstracts.Properties;
-import com.gmail.alexander.realestatesofia.models.costumers.Buyer;
-import com.gmail.alexander.realestatesofia.models.costumers.Seller;
+import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
+import com.gmail.alexander.realestatesofia.entity.costumers.Buyer;
+import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,12 +22,15 @@ public class RealEstateEmployee {
     private String name;
     private String address;
     private String phone;
+    @ManyToOne
+    @JoinColumn(name="agency_id")
+    private Agency placeOfWork;
     @Transient
     private List<Seller> sellers;
     @Transient
     private List<Buyer> buyers;
     @Transient
-    private Map<Properties, List<Buyer>> visitedByBuyers;
+    private Map<Property, List<Buyer>> visitedByBuyers;
 
 
     public RealEstateEmployee(Long id,
@@ -36,7 +39,7 @@ public class RealEstateEmployee {
                               String phone,
                               List<Seller> sellers,
                               List<Buyer> buyers,
-                              Map<Properties, List<Buyer>> visitedByBuyers) {
+                              Map<Property, List<Buyer>> visitedByBuyers) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -90,11 +93,11 @@ public class RealEstateEmployee {
         this.buyers = buyers;
     }
 
-    public Map<Properties, List<Buyer>> getVisitedByBuyers() {
+    public Map<Property, List<Buyer>> getVisitedByBuyers() {
         return visitedByBuyers;
     }
 
-    public void setVisitedByBuyers(Map<Properties, List<Buyer>> visitedByBuyers) {
+    public void setVisitedByBuyers(Map<Property, List<Buyer>> visitedByBuyers) {
         this.visitedByBuyers = visitedByBuyers;
     }
 }

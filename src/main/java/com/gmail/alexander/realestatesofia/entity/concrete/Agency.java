@@ -1,4 +1,4 @@
-package com.gmail.alexander.realestatesofia.models.concrete;
+package com.gmail.alexander.realestatesofia.entity.concrete;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,6 +25,9 @@ public class Agency {
     //This is how tell to the framework that this is not a Column of table.
     @Transient
     private List<RealEstateEmployee> employees;
+
+    public Agency() {
+    }
 
     public Agency(Long id, String name, String address, String contactByPhone, List<RealEstateEmployee> employees) {
         this.id = id;
