@@ -22,12 +22,13 @@ public abstract class Property {
     private String description;
     private String address;
     private Integer price;
-    private RealEstateType realEstateType;
+    private String realEstateType;
 
-    @Transient
+    @ManyToOne
+    @JoinColumn(name= "employeeId")
     private RealEstateEmployee realEstateEmployee;
 
-    public Property(Long id, Integer sizeOfRealEstate, String description, String address, Integer price, RealEstateType realEstateType, RealEstateEmployee realEstateEmployee) {
+    public Property(Long id, Integer sizeOfRealEstate, String description, String address, Integer price, String realEstateType, RealEstateEmployee realEstateEmployee) {
         this.id = id;
         this.sizeOfRealEstate = sizeOfRealEstate;
         this.description = description;
@@ -35,6 +36,10 @@ public abstract class Property {
         this.price = price;
         this.realEstateType = realEstateType;
         this.realEstateEmployee = realEstateEmployee;
+    }
+
+    public Property() {
+
     }
 
     public Long getId() {
@@ -77,11 +82,11 @@ public abstract class Property {
         this.price = price;
     }
 
-    public RealEstateType getRealEstateType() {
+    public String getRealEstateType() {
         return realEstateType;
     }
 
-    public void setRealEstateType(RealEstateType realEstateType) {
+    public void setRealEstateType(String realEstateType) {
         this.realEstateType = realEstateType;
     }
 

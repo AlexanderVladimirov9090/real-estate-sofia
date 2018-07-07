@@ -16,12 +16,12 @@ import javax.persistence.Entity;
  */
 @Entity
 public class House extends Property {
-    private BuildMaterial buildMaterial;
+    private String buildMaterial;
     private HouseType houseType;
     private int parkingSpace;
     private int yardSize;
 
-    public House(Long id, Integer sizeOfRealEstate, String description, String address, Integer price, RealEstateType type, RealEstateEmployee realEstateEmployee, BuildMaterial buildMaterial, HouseType houseType, int parkingSpace, int yardSize) {
+    public House(Long id, Integer sizeOfRealEstate, String description, String address, Integer price, String type, RealEstateEmployee realEstateEmployee, String buildMaterial, HouseType houseType, int parkingSpace, int yardSize) {
         super(id, sizeOfRealEstate, description, address, price, type, realEstateEmployee);
         this.buildMaterial = buildMaterial;
         this.houseType = houseType;
@@ -29,11 +29,11 @@ public class House extends Property {
         this.yardSize = yardSize;
         }
 
-    public BuildMaterial getBuildMaterial() {
+    public String getBuildMaterial() {
         return buildMaterial;
     }
 
-    public void setBuildMaterial(BuildMaterial buildMaterial) {
+    public void setBuildMaterial(String buildMaterial) {
         this.buildMaterial = buildMaterial;
     }
 

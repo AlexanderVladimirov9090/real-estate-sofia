@@ -18,7 +18,7 @@ public class Land extends Property {
     private boolean isRegulated;
     private LandType landType;
 
-    public Land(Long id, Integer sizeOfRealEstate, String description, String address, Integer price, RealEstateType type, RealEstateEmployee realEstateEmployee, boolean isRegulated, LandType landType) {
+    public Land(Long id, Integer sizeOfRealEstate, String description, String address, Integer price, String type, RealEstateEmployee realEstateEmployee, boolean isRegulated, LandType landType) {
         super(id, sizeOfRealEstate, description, address, price, type, realEstateEmployee);
         this.isRegulated = isRegulated;
         this.landType = landType;

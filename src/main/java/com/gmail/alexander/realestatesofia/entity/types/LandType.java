@@ -5,7 +5,7 @@ package com.gmail.alexander.realestatesofia.entity.types;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
- *     This is the type of land, that could be selled from the agency.
+ *     This is the realEstatetype of land, that could be selled from the agency.
  */
 public enum LandType {
     FIELD, LAWN, FOREST;

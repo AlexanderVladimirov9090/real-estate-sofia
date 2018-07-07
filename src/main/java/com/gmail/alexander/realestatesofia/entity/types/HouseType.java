@@ -6,7 +6,7 @@ package com.gmail.alexander.realestatesofia.entity.types;
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
  *
- *     This is the type of houses, that could be selled from the agency.
+ *     This is the realEstatetype of houses, that could be selled from the agency.
  */
 public enum HouseType {
     FLOOR_OF_HOUSE, HOUSE;

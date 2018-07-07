@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * <alexandervladimirov1902@gmail.com>
  */
 @Repository
-public class PropertyDAO {
+public class BuyerDAO {
 }

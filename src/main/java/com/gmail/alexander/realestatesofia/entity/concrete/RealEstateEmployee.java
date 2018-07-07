@@ -18,7 +18,7 @@ import java.util.Map;
 public class RealEstateEmployee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private final Long id;
+    private Long id;
     private String name;
     private String address;
     private String phone;
@@ -33,24 +33,27 @@ public class RealEstateEmployee {
     private Map<Property, List<Buyer>> visitedByBuyers;
 
 
-    public RealEstateEmployee(Long id,
-                              String name,
-                              String address,
-                              String phone,
-                              List<Seller> sellers,
-                              List<Buyer> buyers,
-                              Map<Property, List<Buyer>> visitedByBuyers) {
+    public RealEstateEmployee(Long id, String name, String address, String phone, Agency placeOfWork, List<Seller> sellers, List<Buyer> buyers, Map<Property, List<Buyer>> visitedByBuyers) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
+        this.placeOfWork = placeOfWork;
         this.sellers = sellers;
         this.buyers = buyers;
         this.visitedByBuyers = visitedByBuyers;
     }
 
+    public RealEstateEmployee() {
+
+    }
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -75,6 +78,14 @@ public class RealEstateEmployee {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Agency getPlaceOfWork() {
+        return placeOfWork;
+    }
+
+    public void setPlaceOfWork(Agency placeOfWork) {
+        this.placeOfWork = placeOfWork;
     }
 
     public List<Seller> getSellers() {
