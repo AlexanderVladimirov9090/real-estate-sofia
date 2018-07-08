@@ -1,6 +1,7 @@
 package com.gmail.alexander.realestatesofia.entity.abstracts;
 
 import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
+import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
 
 import javax.persistence.*;
 
@@ -26,8 +27,11 @@ public abstract class Property {
     @ManyToOne
     @JoinColumn(name= "employeeId")
     private Employee employee;
+    @ManyToOne
+    @JoinColumn(name= "sellerId")
+    private Seller seller;
 
-    public Property(int id, Integer sizeOfRealEstate, String description, String address, Double price, String realEstateType, Employee employee) {
+    public Property(int id, Integer sizeOfRealEstate, String description, String address, Double price, String realEstateType, Employee employee, Seller seller) {
         this.id = id;
         this.sizeOfRealEstate = sizeOfRealEstate;
         this.description = description;
@@ -35,6 +39,7 @@ public abstract class Property {
         this.price = price;
         this.realEstateType = realEstateType;
         this.employee = employee;
+        this.seller = seller;
     }
 
     public Property() {
@@ -95,5 +100,13 @@ public abstract class Property {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
     }
 }

@@ -2,6 +2,7 @@ package com.gmail.alexander.realestatesofia.entity.realesates;
 
 import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
 import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
+import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
 
 import javax.persistence.Entity;
 
@@ -18,8 +19,8 @@ public class House extends Property {
     private int parkingSpace;
     private int yardSize;
 
-    public House(int id, Integer sizeOfRealEstate, String description, String address, Double price, String type, Employee employee, String buildMaterial, String houseType, int parkingSpace, int yardSize) {
-        super(id, sizeOfRealEstate, description, address, price, type, employee);
+    public House(int id, Integer sizeOfRealEstate, String description, String address, Double price, String type, Employee employee, Seller seller, String buildMaterial, String houseType, int parkingSpace, int yardSize) {
+        super(id, sizeOfRealEstate, description, address, price, type, employee, seller);
         this.buildMaterial = buildMaterial;
         this.houseType = houseType;
         this.parkingSpace = parkingSpace;

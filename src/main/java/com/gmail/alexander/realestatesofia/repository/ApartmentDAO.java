@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created on 07.07.18.
@@ -21,9 +22,9 @@ import java.util.List;
 @Repository
 public class ApartmentDAO {
     @Autowired
-    EmployeeDAO employeeDAO;
+    private EmployeeDAO employeeDAO;
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     class ApartmentRowMapper implements RowMapper<Apartment> {
 
@@ -61,9 +62,9 @@ ID  	ADDRESS  	DESCRIPTION  	PRICE  	REAL_ESTATE_TYPE  	SIZE_OF_REAL_ESTATE  	EM
     }
 
     public int insert(Apartment apartment) {
-        System.out.println("APARTMENT : " + apartment.getEmployee().getId());
-        return jdbcTemplate.update("INSERT INTO Apartment (id, address, description, price, REAL_ESTATE_TYPE, SIZE_OF_REAL_ESTATE, apartment_Type, build_Material, employee_id) " + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Employee WHERE id=?) )",
-                apartment.getId(), apartment.getAddress(), apartment.getDescription(), apartment.getPrice(), apartment.getRealEstateType(), apartment.getSizeOfRealEstate(), apartment.getApartmentType(), apartment.getBuildMaterial(), apartment.getEmployee().getId());
+        int countOfEmployee = employeeDAO.countEmployees();
+        return jdbcTemplate.update("INSERT INTO Apartment (id, address, description, price, REAL_ESTATE_TYPE, SIZE_OF_REAL_ESTATE, apartment_Type, build_Material, employee_id, seller_id) " + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Employee WHERE id=?), (SELECT id FROM Seller WHERE id=?) )",
+                apartment.getId(), apartment.getAddress(), apartment.getDescription(), apartment.getPrice(), apartment.getRealEstateType(), apartment.getSizeOfRealEstate(), apartment.getApartmentType(), apartment.getBuildMaterial(), randomEmployee(countOfEmployee), apartment.getSeller().getId());
 
     }
 
@@ -80,4 +81,10 @@ ID  	ADDRESS  	DESCRIPTION  	PRICE  	REAL_ESTATE_TYPE  	SIZE_OF_REAL_ESTATE  	EM
                 apartment.getId());
 
     }
+
+    private int randomEmployee(int countOfEmployees) {
+        Random r = new Random();
+        return r.nextInt((countOfEmployees - 1) + 1) + 1;
+    }
+
 }

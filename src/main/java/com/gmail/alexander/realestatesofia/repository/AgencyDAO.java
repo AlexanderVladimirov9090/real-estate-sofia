@@ -21,7 +21,7 @@ import java.util.List;
 public class AgencyDAO {
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     class AgencyRowMapper implements RowMapper<Agency> {
 
@@ -46,7 +46,7 @@ public class AgencyDAO {
     }
 
     public int deleteById(int id) {
-        return jdbcTemplate.update("DELETE FROM Agency WHERE id=?", new Object[]{id});
+        return jdbcTemplate.update("DELETE FROM Agency WHERE id=?", id);
     }
 
     public int insert(Agency agency) {
@@ -56,6 +56,6 @@ public class AgencyDAO {
 
     public int update(Agency agency) {
         return jdbcTemplate.update("UPDATE Agency " + "SET name=?, address=?, contact_By_Phone=?  " + "WHERE id=?",
-                new Object[]{agency.getName(), agency.getAddress(), agency.getContactByPhone(), agency.getId()});
+                agency.getName(), agency.getAddress(), agency.getContactByPhone(), agency.getId());
     }
 }

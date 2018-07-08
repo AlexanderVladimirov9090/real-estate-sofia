@@ -20,7 +20,7 @@ import java.util.List;
 @Repository
 public class BuyerDAO {
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     class BuyerRowMapper implements RowMapper<Buyer> {
 

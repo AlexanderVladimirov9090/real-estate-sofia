@@ -2,6 +2,7 @@ package com.gmail.alexander.realestatesofia.entity.costumers;
 
 import com.gmail.alexander.realestatesofia.entity.abstracts.Customer;
 import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
+import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

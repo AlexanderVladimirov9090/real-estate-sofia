@@ -21,9 +21,9 @@ import java.util.List;
 @Repository
 public class SellerDAO {
     @Autowired
-    ApartmentDAO apartmentDAO;
+   private ApartmentDAO apartmentDAO;
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     class SellerRowMapper implements RowMapper<Seller> {
 
@@ -51,10 +51,11 @@ public class SellerDAO {
     }
 
     public int insert(Seller seller) {
-        //TODO RandomEmployee(EmployeeDAO.countEmployees());
-      /*  return jdbcTemplate.update("INSERT INTO Seller (ID, NAME, PHONE, REAL_ESTATE_EMPLOYEE_ID) " + "VALUES(?, ?, ?, (SELECT id FROM REAL_ESTATE_EMPLOYEE WHERE id=? ))",
+
+    /*   *//*ID  	NAME  	PHONE  	REAL_ESTATE_FOR_SALE_ID
+        *//* return jdbcTemplate.update("INSERT INTO Seller (ID, NAME, PHONE, REAL_ESTATE_FOR_SALE_ID) " + "VALUES(?, ?, ?, (SELECT id FROM REAL_ESTATE_EMPLOYEE WHERE id=? ))",
                 new Object[]{customer.getId(),customer.getName(),customer.getContactByPhone()});
-   */
+*/
         return 0;
     }
 

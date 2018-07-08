@@ -2,6 +2,7 @@ package com.gmail.alexander.realestatesofia;
 
 import com.gmail.alexander.realestatesofia.entity.concrete.Agency;
 import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
+import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
 import com.gmail.alexander.realestatesofia.entity.realesates.Apartment;
 import com.gmail.alexander.realestatesofia.entity.types.ApartmentType;
 import com.gmail.alexander.realestatesofia.entity.types.BuildMaterial;
@@ -30,7 +31,7 @@ private EmployeeDAO employeeDAO;
 
     @Override
     public void run(String... args) throws Exception {
-        Agency agency = new Agency();
+      Agency agency = new Agency();
         agency.setId(1);
         agency.setName("Sofia Real Estate Agency");
         agency.setAddress("Sofia, Sofia Street number 1");
@@ -63,6 +64,7 @@ private EmployeeDAO employeeDAO;
         apartment.setApartmentType(ApartmentType.type.get("STUDIO"));
         apartment.setBuildMaterial(BuildMaterial.builMaterialType.get("BRICK"));
         apartment.setEmployee(expectedEmployee);
+        apartment.setSeller(new Seller(0,null,null,null));
         apartmentDAO.deleteById(1);
         apartmentDAO.insert(apartment);
 
@@ -78,8 +80,6 @@ private EmployeeDAO employeeDAO;
             System.out.println(each.getAddress()+ " "+each.getPrice() +" " + each.getEmployee().getName());
 
         }
-
-
 
 
 

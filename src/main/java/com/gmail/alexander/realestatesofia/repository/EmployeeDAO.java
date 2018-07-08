@@ -1,6 +1,5 @@
 package com.gmail.alexander.realestatesofia.repository;
 
-import com.gmail.alexander.realestatesofia.entity.concrete.Agency;
 import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -21,9 +20,9 @@ import java.util.List;
 @Repository
 public class EmployeeDAO {
     @Autowired
-    AgencyDAO agencyDAO;
+    private AgencyDAO agencyDAO;
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     class EmployeeRowMapper implements RowMapper<Employee> {
 
@@ -62,6 +61,10 @@ public class EmployeeDAO {
         return jdbcTemplate.update("UPDATE Employee" + "SET ADDRESS=?, NAME=?, PHONE=?  " + "WHERE ID=?",
                 employee.getAddress(), employee.getName(), employee.getPhone(), employee.getId());
 
+    }
+
+    int countEmployees() {
+        return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM Employee", int.class);
     }
 
 }
