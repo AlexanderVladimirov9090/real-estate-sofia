@@ -15,16 +15,14 @@ import java.util.Map;
  * <alexandervladimirov1902@gmail.com>
  */
 @Entity
-public class RealEstateEmployee {
+public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
     private String name;
     private String address;
     private String phone;
-    @ManyToOne
-    @JoinColumn(name="agency_id")
-    private Agency placeOfWork;
     @Transient
     private List<Seller> sellers;
     @Transient
@@ -33,26 +31,25 @@ public class RealEstateEmployee {
     private Map<Property, List<Buyer>> visitedByBuyers;
 
 
-    public RealEstateEmployee(Long id, String name, String address, String phone, Agency placeOfWork, List<Seller> sellers, List<Buyer> buyers, Map<Property, List<Buyer>> visitedByBuyers) {
+    public Employee(int id, String name, String address, String phone, List<Seller> sellers, List<Buyer> buyers, Map<Property, List<Buyer>> visitedByBuyers) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
-        this.placeOfWork = placeOfWork;
         this.sellers = sellers;
         this.buyers = buyers;
         this.visitedByBuyers = visitedByBuyers;
     }
 
-    public RealEstateEmployee() {
+    public Employee() {
 
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -78,14 +75,6 @@ public class RealEstateEmployee {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public Agency getPlaceOfWork() {
-        return placeOfWork;
-    }
-
-    public void setPlaceOfWork(Agency placeOfWork) {
-        this.placeOfWork = placeOfWork;
     }
 
     public List<Seller> getSellers() {

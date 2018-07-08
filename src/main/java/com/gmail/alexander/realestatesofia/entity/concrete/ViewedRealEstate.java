@@ -15,14 +15,14 @@ import java.util.Date;
 @Entity
 public class ViewedRealEstate {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
     @ManyToOne
     @JoinColumn(name="property_for_view")
     private Property propertyForView;
     @ManyToOne
     @JoinColumn(name="agent_id")
-    private RealEstateEmployee agent;
+    private Employee agent;
     @ManyToOne
     @JoinColumn(name="buyers_id")
     private Buyer buyers;

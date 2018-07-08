@@ -1,10 +1,7 @@
 package com.gmail.alexander.realestatesofia.entity.realesates;
 
 import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
-import com.gmail.alexander.realestatesofia.entity.concrete.RealEstateEmployee;
-import com.gmail.alexander.realestatesofia.entity.types.BuildMaterial;
-import com.gmail.alexander.realestatesofia.entity.types.HouseType;
-import com.gmail.alexander.realestatesofia.entity.types.RealEstateType;
+import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
 
 import javax.persistence.Entity;
 
@@ -17,12 +14,12 @@ import javax.persistence.Entity;
 @Entity
 public class House extends Property {
     private String buildMaterial;
-    private HouseType houseType;
+    private String houseType;
     private int parkingSpace;
     private int yardSize;
 
-    public House(Long id, Integer sizeOfRealEstate, String description, String address, Integer price, String type, RealEstateEmployee realEstateEmployee, String buildMaterial, HouseType houseType, int parkingSpace, int yardSize) {
-        super(id, sizeOfRealEstate, description, address, price, type, realEstateEmployee);
+    public House(int id, Integer sizeOfRealEstate, String description, String address, Double price, String type, Employee employee, String buildMaterial, String houseType, int parkingSpace, int yardSize) {
+        super(id, sizeOfRealEstate, description, address, price, type, employee);
         this.buildMaterial = buildMaterial;
         this.houseType = houseType;
         this.parkingSpace = parkingSpace;
@@ -37,11 +34,11 @@ public class House extends Property {
         this.buildMaterial = buildMaterial;
     }
 
-    public HouseType getHouseType() {
+    public String getHouseType() {
         return houseType;
     }
 
-    public void setHouseType(HouseType houseType) {
+    public void setHouseType(String houseType) {
         this.houseType = houseType;
     }
 

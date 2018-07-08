@@ -8,7 +8,7 @@ import java.util.Map;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
- *     This is the realEstatetype of aparments, that could be selled from the agency.
+ *     This is the realEstateType of aparments, that could be selled from the agency.
  * TODO Find better word for GARSONIERA.
  */
 public class ApartmentType {

@@ -1,6 +1,7 @@
 package com.gmail.alexander.realestatesofia.entity.costumers;
 
 import com.gmail.alexander.realestatesofia.entity.abstracts.Customer;
+import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
 import com.gmail.alexander.realestatesofia.entity.concrete.ViewedRealEstate;
 
 import javax.persistence.*;
@@ -15,24 +16,30 @@ import java.util.List;
 @Entity
 public class Buyer extends Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private int budget;
-
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
+    private Double budget;
+    @ManyToOne
+    @JoinColumn(name="REAL_ESTATE_EMPLOYEE_ID")
+    private Employee employee;
     @Transient
     private List<ViewedRealEstate> viewedProperties;
 
-    public Buyer(Long id, String name, String phone, Class type, int budget, List<ViewedRealEstate> viewedProperties) {
-        super(id, name, phone, type);
+    public Buyer(int id, String name, String phone, Double budget, List<ViewedRealEstate> viewedProperties) {
+        super(id, name, phone);
         this.budget = budget;
         this.viewedProperties = viewedProperties;
     }
 
-    public int getBudget() {
+    public Buyer() {
+
+    }
+
+    public Double getBudget() {
         return budget;
     }
 
-    public void setBudget(int budget) {
+    public void setBudget(Double budget) {
         this.budget = budget;
     }
 

@@ -28,7 +28,7 @@ public class AgencyDAO {
         @Override
         public Agency mapRow(ResultSet rs, int rowNum) throws SQLException {
             Agency agency = new Agency();
-            agency.setId(rs.getLong("id"));
+            agency.setId(rs.getInt("id"));
             agency.setName(rs.getString("name"));
             agency.setAddress("address");
             agency.setContactByPhone("contactByPhone");

@@ -1,16 +1,13 @@
 package com.gmail.alexander.realestatesofia.repository;
 
-import com.gmail.alexander.realestatesofia.entity.abstracts.Customer;
-import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
-import com.gmail.alexander.realestatesofia.entity.concrete.Agency;
 import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
+import com.gmail.alexander.realestatesofia.entity.realesates.Apartment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -24,40 +21,63 @@ import java.util.List;
 @Repository
 public class SellerDAO {
     @Autowired
+    ApartmentDAO apartmentDAO;
+    @Autowired
     JdbcTemplate jdbcTemplate;
-    class CustomerRowMapper implements RowMapper<Customer> {
+
+    class SellerRowMapper implements RowMapper<Seller> {
 
         @Override
-        public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Customer customer = new Seller();
-            customer.setId(rs.getLong("id"));
-            customer.setName(rs.getString("name"));
-            customer.setPhone(rs.getString("phone"));
-            customer.setType(Seller.class);
+        public Seller mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Seller seller = new Seller();
+            seller.setId(rs.getInt("id"));
+            seller.setName(rs.getString("name"));
+            seller.setPhone(rs.getString("phone"));
 
-            return customer;
+            return seller;
         }
     }
 
-    public List<Customer> findAll(){
-        return jdbcTemplate.query("SELECT * FROM Customer UNION SELECT * FROM Seller", new CustomerRowMapper());
+    public List<Seller> findAll() {
+        return jdbcTemplate.query("SELECT * FROM Seller", new SellerRowMapper());
     }
 
-    public Seller findById(int id){
-        return jdbcTemplate.queryForObject("SELECT * FROM Customer UNION SELECT * FROM Seller WHERE id=?",new Object[]{id},new BeanPropertyRowMapper<Seller>(Seller.class));
+    public Seller findById(int id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM Seller WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<Seller>(Seller.class));
     }
 
-    public int deleteById(int id){
-        return jdbcTemplate.update("DELETE FROM CUSTOMER WHERE id=?", new Object[]{id});
+    public int deleteById(int id) {
+        return jdbcTemplate.update("DELETE FROM Seller WHERE id=?", id);
     }
-    public int insert(Customer customer){
-      /*  return jdbcTemplate.update("INSERT INTO Agency (id, name, address, contactByPhone) " + "VALUES(?, ?, ?, ?)",
+
+    public int insert(Seller seller) {
+        //TODO RandomEmployee(EmployeeDAO.countEmployees());
+      /*  return jdbcTemplate.update("INSERT INTO Seller (ID, NAME, PHONE, REAL_ESTATE_EMPLOYEE_ID) " + "VALUES(?, ?, ?, (SELECT id FROM REAL_ESTATE_EMPLOYEE WHERE id=? ))",
                 new Object[]{customer.getId(),customer.getName(),customer.getContactByPhone()});
    */
-      return 0;
+        return 0;
     }
-    public int update(Agency agency){
-        return jdbcTemplate.update("UPDATE Agency" + "SET name=?, address=?, contactByPhone=?  "+ "WHERE id=?",
+
+    public int update(Seller Seller) {
+        //TODO Do the updated logic.
+ /*       return jdbcTemplate.update("UPDATE Seller" + "SET name=?, address=?, contactByPhone=?  "+ "WHERE id=?",
                 new Object[]{agency.getName(),agency.getAddress(),agency.getContactByPhone(),agency.getId()});
+ */
+        return 0;
+    }
+
+    public void registerSellingProperty(Seller seller) {
+        switch (seller.getRealEstatesForSale().getRealEstateType()) {
+            case "Apartment":
+                Apartment sellingApartment = (Apartment) seller.getRealEstatesForSale();
+                apartmentDAO.insert(sellingApartment);
+                break;
+            case "House":
+                //TODO Register selling of a house.
+                break;
+            case "Land":
+                //TODO register selling of a land.
+                break;
+        }
     }
 }

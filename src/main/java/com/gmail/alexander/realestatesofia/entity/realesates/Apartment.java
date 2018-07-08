@@ -1,10 +1,7 @@
 package com.gmail.alexander.realestatesofia.entity.realesates;
 
 import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
-import com.gmail.alexander.realestatesofia.entity.concrete.RealEstateEmployee;
-import com.gmail.alexander.realestatesofia.entity.types.ApartmentType;
-import com.gmail.alexander.realestatesofia.entity.types.BuildMaterial;
-import com.gmail.alexander.realestatesofia.entity.types.RealEstateType;
+import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
 
 import javax.persistence.Entity;
 
@@ -19,8 +16,8 @@ public class Apartment extends Property {
     private String buildMaterial;
     private String apartmentType;
 
-    public Apartment(Long id, Integer sizeOfRealEstate, String description, String address, Integer price, String type, RealEstateEmployee realEstateEmployee, String buildMaterial, String apartmentType) {
-        super(id, sizeOfRealEstate, description, address, price, type, realEstateEmployee);
+    public Apartment(int id, Integer sizeOfRealEstate, String description, String address, Double price, String type, Employee employee, String buildMaterial, String apartmentType) {
+        super(id, sizeOfRealEstate, description, address, price, type, employee);
         this.buildMaterial = buildMaterial;
         this.apartmentType = apartmentType;
     }

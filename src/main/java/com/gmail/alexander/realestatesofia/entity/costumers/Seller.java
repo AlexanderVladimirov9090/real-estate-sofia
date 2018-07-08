@@ -3,7 +3,9 @@ package com.gmail.alexander.realestatesofia.entity.costumers;
 import com.gmail.alexander.realestatesofia.entity.abstracts.Customer;
 import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * Created on 05.07.18.
@@ -13,21 +15,23 @@ import javax.persistence.*;
  */
 @Entity
 public class Seller extends Customer {
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-   @ManyToOne
-   @JoinColumn(name="real_estate_for_sale_id")
+
+    @ManyToOne
+    @JoinColumn(name = "real_estate_for_sale_id")
     private Property realEstatesForSale;
-    public Seller(Long id, String name, String phone, Class type, Property realEstatesForSale) {
-        super(id, name, phone, type);
-            this.realEstatesForSale=realEstatesForSale;
-    }
 
     public Seller() {
         super();
     }
 
+    public Seller(int id, String name, String phone, Property realEstatesForSale) {
+        super(id, name, phone);
+        this.realEstatesForSale = realEstatesForSale;
+    }
+
+    public Property getRealEstatesForSale() {
+        return realEstatesForSale;
+    }
 
     public void setRealEstatesForSale(Property realEstatesForSale) {
         this.realEstatesForSale = realEstatesForSale;

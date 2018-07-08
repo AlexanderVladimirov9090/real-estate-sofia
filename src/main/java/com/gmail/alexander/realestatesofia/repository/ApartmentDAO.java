@@ -1,6 +1,6 @@
 package com.gmail.alexander.realestatesofia.repository;
 
-import com.gmail.alexander.realestatesofia.entity.concrete.RealEstateEmployee;
+import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
 import com.gmail.alexander.realestatesofia.entity.realesates.Apartment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -21,7 +21,7 @@ import java.util.List;
 @Repository
 public class ApartmentDAO {
     @Autowired
-    RealEstateEmployeeDAO realEstateEmployeeDAO;
+    EmployeeDAO employeeDAO;
     @Autowired
     JdbcTemplate jdbcTemplate;
 
@@ -31,20 +31,24 @@ public class ApartmentDAO {
         public Apartment mapRow(ResultSet rs, int rowNum) throws SQLException {
             Apartment property = new Apartment();
             property.setAddress(rs.getString("address"));
-            property.setPrice(rs.getInt("price"));
+            property.setPrice(rs.getDouble("price"));
             property.setDescription(rs.getString("description"));
-            property.setSizeOfRealEstate(rs.getInt("sizeOfRealEstate"));
+            property.setSizeOfRealEstate(rs.getInt("SIZE_OF_REAL_ESTATE"));
             property.setApartmentType(rs.getString("apartment_Type"));
             property.setBuildMaterial("build_Material");
+            Employee employee = employeeDAO.findById(rs.getInt("employee_id"));
+            property.setEmployee(employee);
             /*
+
+ID  	ADDRESS  	DESCRIPTION  	PRICE  	REAL_ESTATE_TYPE  	SIZE_OF_REAL_ESTATE  	EMPLOYEE_ID  	APARTMENT_TYPE  	BUILD_MATERIAL
                 TODO implement CRUD Logic to REALESTATEEMPLOYEE
-            property.setRealEstateEmployee();*/
+            property.setEmployee();*/
             return property;
         }
     }
 
     public List<Apartment> findAll() {
-        return jdbcTemplate.query("SELECT * FROM Apartment", new ApartmentRowMapper());
+        return jdbcTemplate.query("SELECT * FROM Apartment ORDER BY PRICE DESC", new ApartmentRowMapper());
 
     }
 
@@ -57,14 +61,14 @@ public class ApartmentDAO {
     }
 
     public int insert(Apartment apartment) {
-
-        return jdbcTemplate.update("INSERT INTO Apartment (id, address, description, price, REAL_ESTATE_TYPE, SIZE_OF_REAL_ESTATE, apartment_Type, build_Material, employee_id) " + "VALUES(?, ?, ?, ?, ?, ?, ?, ?,  (SELECT id FROM REAL_ESTATE_EMPLOYEE WHERE id=?    ))",
-                apartment.getId(), apartment.getAddress(), apartment.getDescription(), apartment.getPrice(), apartment.getRealEstateType(), apartment.getSizeOfRealEstate(), apartment.getApartmentType(), apartment.getBuildMaterial(), apartment.getRealEstateEmployee().getId());
+        System.out.println("APARTMENT : " + apartment.getEmployee().getId());
+        return jdbcTemplate.update("INSERT INTO Apartment (id, address, description, price, REAL_ESTATE_TYPE, SIZE_OF_REAL_ESTATE, apartment_Type, build_Material, employee_id) " + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Employee WHERE id=?) )",
+                apartment.getId(), apartment.getAddress(), apartment.getDescription(), apartment.getPrice(), apartment.getRealEstateType(), apartment.getSizeOfRealEstate(), apartment.getApartmentType(), apartment.getBuildMaterial(), apartment.getEmployee().getId());
 
     }
 
     public int update(Apartment apartment) {
-        return jdbcTemplate.update("UPDATE Apartment " + "SET ADDRESS=?, DESCRIPTION=?, PRICE=?, REAL_ESTATE_TYPE=?, SIZE_OF_REAL_ESTATE=?, APARTMENT_TYPE=?, BUILD_MATERIAL=?, EMPLOYEE_ID=(SELECT id FROM REAL_ESTATE_EMPLOYEE WHERE id=? )  " + "WHERE id=?",
+        return jdbcTemplate.update("UPDATE Apartment " + "SET ADDRESS=?, DESCRIPTION=?, PRICE=?, REAL_ESTATE_TYPE=?, SIZE_OF_REAL_ESTATE=?, APARTMENT_TYPE=?, BUILD_MATERIAL=?, EMPLOYEE_ID=(SELECT id FROM Employee WHERE id=? )  " + "WHERE id=?",
                 apartment.getAddress(),
                 apartment.getDescription(),
                 apartment.getPrice(),
@@ -72,7 +76,7 @@ public class ApartmentDAO {
                 apartment.getSizeOfRealEstate(),
                 apartment.getApartmentType(),
                 apartment.getBuildMaterial(),
-                apartment.getRealEstateEmployee().getId(),
+                apartment.getEmployee().getId(),
                 apartment.getId());
 
     }

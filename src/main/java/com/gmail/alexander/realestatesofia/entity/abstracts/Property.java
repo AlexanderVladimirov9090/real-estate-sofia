@@ -1,7 +1,6 @@
 package com.gmail.alexander.realestatesofia.entity.abstracts;
 
-import com.gmail.alexander.realestatesofia.entity.concrete.RealEstateEmployee;
-import com.gmail.alexander.realestatesofia.entity.types.RealEstateType;
+import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
 
 import javax.persistence.*;
 
@@ -16,37 +15,37 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Property {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
     private Integer sizeOfRealEstate;
     private String description;
     private String address;
-    private Integer price;
+    private Double price;
     private String realEstateType;
 
     @ManyToOne
     @JoinColumn(name= "employeeId")
-    private RealEstateEmployee realEstateEmployee;
+    private Employee employee;
 
-    public Property(Long id, Integer sizeOfRealEstate, String description, String address, Integer price, String realEstateType, RealEstateEmployee realEstateEmployee) {
+    public Property(int id, Integer sizeOfRealEstate, String description, String address, Double price, String realEstateType, Employee employee) {
         this.id = id;
         this.sizeOfRealEstate = sizeOfRealEstate;
         this.description = description;
         this.address = address;
         this.price = price;
         this.realEstateType = realEstateType;
-        this.realEstateEmployee = realEstateEmployee;
+        this.employee = employee;
     }
 
     public Property() {
 
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -74,11 +73,11 @@ public abstract class Property {
         this.address = address;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -90,11 +89,11 @@ public abstract class Property {
         this.realEstateType = realEstateType;
     }
 
-    public RealEstateEmployee getRealEstateEmployee() {
-        return realEstateEmployee;
+    public Employee getEmployee() { ;
+        return employee;
     }
 
-    public void setRealEstateEmployee(RealEstateEmployee realEstateEmployee) {
-        this.realEstateEmployee = realEstateEmployee;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

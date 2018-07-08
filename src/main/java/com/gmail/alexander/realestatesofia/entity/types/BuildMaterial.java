@@ -8,7 +8,7 @@ import java.util.Map;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
- * This is the realEstatetype of build material that is used to construct the establishment.
+ * This is the realEstateType of build material that is used to construct the establishment.
  */
 public class BuildMaterial {
     public static final Map<String, String> builMaterialType;

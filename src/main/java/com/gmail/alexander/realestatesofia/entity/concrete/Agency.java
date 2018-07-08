@@ -16,20 +16,20 @@ import java.util.List;
 public class Agency {
     //Using annotation to show the framework that this is the id of the object and how to be used.
     @Id
-    //This annotation tells when write to database generate next id.
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
     private String name;
     private String address;
     private String contactByPhone;
     //This is how tell to the framework that this is not a Column of table.
     @Transient
-    private List<RealEstateEmployee> employees;
+    private List<Employee> employees;
 
     public Agency() {
     }
 
-    public Agency(Long id, String name, String address, String contactByPhone, List<RealEstateEmployee> employees) {
+    public Agency(int id, String name, String address, String contactByPhone, List<Employee> employees) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -37,11 +37,11 @@ public class Agency {
         //    this.employees = employees;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -69,11 +69,11 @@ public class Agency {
         this.contactByPhone = contactByPhone;
     }
 
-    public List<RealEstateEmployee> getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(List<RealEstateEmployee> employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 }

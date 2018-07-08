@@ -1,9 +1,7 @@
 package com.gmail.alexander.realestatesofia.entity.realesates;
 
 import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
-import com.gmail.alexander.realestatesofia.entity.concrete.RealEstateEmployee;
-import com.gmail.alexander.realestatesofia.entity.types.LandType;
-import com.gmail.alexander.realestatesofia.entity.types.RealEstateType;
+import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
 
 import javax.persistence.Entity;
 
@@ -16,10 +14,10 @@ import javax.persistence.Entity;
 @Entity
 public class Land extends Property {
     private boolean isRegulated;
-    private LandType landType;
+    private String landType;
 
-    public Land(Long id, Integer sizeOfRealEstate, String description, String address, Integer price, String type, RealEstateEmployee realEstateEmployee, boolean isRegulated, LandType landType) {
-        super(id, sizeOfRealEstate, description, address, price, type, realEstateEmployee);
+    public Land(int id, Integer sizeOfRealEstate, String description, String address, Double price, String type, Employee employee, boolean isRegulated, String landType) {
+        super(id, sizeOfRealEstate, description, address, price, type, employee);
         this.isRegulated = isRegulated;
         this.landType = landType;
     }
@@ -32,11 +30,11 @@ public class Land extends Property {
         isRegulated = regulated;
     }
 
-    public LandType getLandType() {
+    public String getLandType() {
         return landType;
     }
 
-    public void setLandType(LandType landType) {
+    public void setLandType(String landType) {
         this.landType = landType;
     }
 }
