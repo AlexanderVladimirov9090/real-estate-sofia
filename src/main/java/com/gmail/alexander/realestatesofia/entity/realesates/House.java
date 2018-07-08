@@ -27,6 +27,10 @@ public class House extends Property {
         this.yardSize = yardSize;
         }
 
+    public House() {
+
+    }
+
     public String getBuildMaterial() {
         return buildMaterial;
     }

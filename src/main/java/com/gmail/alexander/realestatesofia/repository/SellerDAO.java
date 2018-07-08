@@ -2,6 +2,8 @@ package com.gmail.alexander.realestatesofia.repository;
 
 import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
 import com.gmail.alexander.realestatesofia.entity.realesates.Apartment;
+import com.gmail.alexander.realestatesofia.entity.realesates.House;
+import com.gmail.alexander.realestatesofia.entity.realesates.Land;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -74,11 +76,18 @@ public class SellerDAO {
                 apartmentDAO.insert(sellingApartment);
                 break;
             case "House":
-                //TODO Register selling of a house.
+
+                House house = (House) seller.getRealEstatesForSale();
+
                 break;
             case "Land":
+                Land land= (Land) seller.getRealEstatesForSale();
+
                 //TODO register selling of a land.
                 break;
         }
     }
+    //TODO • Ако е продавач – да регистрира имота си за продажба в агенцията. В такъв
+    //случай от агенцията му се причислява агент на произволен принцип. Имотът
+    //влиза в каталога на агенцията, а клиента – в списъка с продавачи на агента.
 }

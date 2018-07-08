@@ -39,15 +39,20 @@ public class ApartmentDAO {
             property.setBuildMaterial("build_Material");
             Employee employee = employeeDAO.findById(rs.getInt("employee_id"));
             property.setEmployee(employee);
-            /*
-
-ID  	ADDRESS  	DESCRIPTION  	PRICE  	REAL_ESTATE_TYPE  	SIZE_OF_REAL_ESTATE  	EMPLOYEE_ID  	APARTMENT_TYPE  	BUILD_MATERIAL
-                TODO implement CRUD Logic to REALESTATEEMPLOYEE
-            property.setEmployee();*/
             return property;
         }
     }
-
+/*
+* TODO
+* SELECT A
+FROM
+(
+    SELECT A, B FROM TableA
+    UNION
+    SELECT A, B FROM TableB
+) AS tbl
+WHERE B > 'some value'
+* */
     public List<Apartment> findAll() {
         return jdbcTemplate.query("SELECT * FROM Apartment ORDER BY PRICE DESC", new ApartmentRowMapper());
 

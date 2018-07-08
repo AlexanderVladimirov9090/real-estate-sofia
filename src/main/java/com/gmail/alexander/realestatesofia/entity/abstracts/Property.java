@@ -13,8 +13,8 @@ import javax.persistence.*;
  * This is the Property class that is going to be a representative from the database.
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Property {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Property {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;

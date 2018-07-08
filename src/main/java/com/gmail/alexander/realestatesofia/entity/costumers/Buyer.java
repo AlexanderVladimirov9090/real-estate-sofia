@@ -19,14 +19,11 @@ public class Buyer extends Customer {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private Double budget;
-    @ManyToOne
-    @JoinColumn(name="REAL_ESTATE_EMPLOYEE_ID")
-    private Employee employee;
     @Transient
     private List<ViewedRealEstate> viewedProperties;
 
-    public Buyer(int id, String name, String phone, Double budget, List<ViewedRealEstate> viewedProperties) {
-        super(id, name, phone);
+    public Buyer(int id, String name, String phone, Double budget, Employee employee,List<ViewedRealEstate> viewedProperties) {
+        super(id, name, phone, employee );
         this.budget = budget;
         this.viewedProperties = viewedProperties;
     }

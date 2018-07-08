@@ -25,8 +25,8 @@ public class Seller extends Customer {
         super();
     }
 
-    public Seller(int id, String name, String phone, Property realEstatesForSale) {
-        super(id, name, phone);
+    public Seller(int id, String name, String phone, Employee employee,Property realEstatesForSale) {
+        super(id, name, phone, employee);
         this.realEstatesForSale = realEstatesForSale;
     }
 

@@ -1,5 +1,7 @@
 package com.gmail.alexander.realestatesofia;
 
+import com.gmail.alexander.realestatesofia.entity.abstracts.Customer;
+import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
 import com.gmail.alexander.realestatesofia.entity.concrete.Agency;
 import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
 import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
@@ -10,6 +12,7 @@ import com.gmail.alexander.realestatesofia.entity.types.RealEstateType;
 import com.gmail.alexander.realestatesofia.repository.AgencyDAO;
 import com.gmail.alexander.realestatesofia.repository.ApartmentDAO;
 import com.gmail.alexander.realestatesofia.repository.EmployeeDAO;
+import com.gmail.alexander.realestatesofia.repository.SellerDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,13 +28,38 @@ private AgencyDAO agencyDAO;
 private ApartmentDAO apartmentDAO;
 @Autowired
 private EmployeeDAO employeeDAO;
+@Autowired
+private SellerDAO sellerDAO;
+@Autowired
+
     public static void main(String[] args) {
         SpringApplication.run(RealEstateSofiaApplication.class, args);
         }
 
     @Override
     public void run(String... args) throws Exception {
-      Agency agency = new Agency();
+       /* Employee employee1= new Employee();
+        employee1.setId(1);
+        employee1.setName("Ivan Ivanov aka. Vankata");
+        employee1.setPhone("+359909090");
+        employee1.setAddress("Home street 1");
+        employeeDAO.insert(employee1);
+        Customer customer = new Customer();
+        customer.setName("Ivan");
+        customer.setPhone("+349123123123");
+        customer.setId(1);
+
+        Property property = new Property();
+        property.setId(1);
+        property.setAddress();
+        property.setDescription();
+        property.setRealEstateType();
+        property.setPrice();
+        property.setSizeOfRealEstate();
+
+        property.setSeller();
+
+        Agency agency = new Agency();
         agency.setId(1);
         agency.setName("Sofia Real Estate Agency");
         agency.setAddress("Sofia, Sofia Street number 1");
@@ -40,19 +68,14 @@ private EmployeeDAO employeeDAO;
         agencyDAO.insert(agency);
         Agency expected  = agencyDAO.findById(1);
         System.out.println("Expected agency: "+expected.getName());
-        Employee employee1= new Employee();
-        employee1.setId(1);
-        employee1.setName("Ivan Ivanov aka. Vankata");
-        employee1.setPhone("+359909090");
-        employee1.setAddress("Home street 1");
-        employeeDAO.insert(employee1);
+
 
         Employee expectedEmployee = employeeDAO.findById(1);
         System.out.println("Expected employee: "+ expectedEmployee.getName()+ "Agency: " + expected.getName());
 
 
-
-
+*/
+/*
 
         Apartment apartment= new Apartment();
         apartment.setId(1);
@@ -63,8 +86,8 @@ private EmployeeDAO employeeDAO;
         apartment.setSizeOfRealEstate(999);
         apartment.setApartmentType(ApartmentType.type.get("STUDIO"));
         apartment.setBuildMaterial(BuildMaterial.builMaterialType.get("BRICK"));
-        apartment.setEmployee(expectedEmployee);
-        apartment.setSeller(new Seller(0,null,null,null));
+        apartment.setEmployee(expectedEmployee);*//*
+        apartment.setSeller();*//*
         apartmentDAO.deleteById(1);
         apartmentDAO.insert(apartment);
 
@@ -80,10 +103,6 @@ private EmployeeDAO employeeDAO;
             System.out.println(each.getAddress()+ " "+each.getPrice() +" " + each.getEmployee().getName());
 
         }
-
-
-
-
-
+*/
     }
 }
