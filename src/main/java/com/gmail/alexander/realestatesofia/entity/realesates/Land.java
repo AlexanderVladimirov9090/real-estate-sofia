@@ -17,10 +17,14 @@ public class Land extends Property {
     private boolean isRegulated;
     private String landType;
 
-    public Land(int id, Integer sizeOfRealEstate, String description, String address, Double price, String type, Employee employee, Seller seller, boolean isRegulated, String landType) {
-        super(id, sizeOfRealEstate, description, address, price, type, employee, seller);
+    public Land(int id, Integer sizeOfRealEstate, String description, String address, Double price, String type, Employee employee, Seller seller, boolean isRegulated, String landType, boolean isSold) {
+        super(id, sizeOfRealEstate, description, address, price, type, employee, seller, isSold);
         this.isRegulated = isRegulated;
         this.landType = landType;
+    }
+
+    public Land() {
+
     }
 
     public boolean isRegulated() {

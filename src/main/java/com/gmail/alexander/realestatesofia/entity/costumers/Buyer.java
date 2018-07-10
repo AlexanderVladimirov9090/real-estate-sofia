@@ -15,16 +15,17 @@ import java.util.List;
  */
 @Entity
 public class Buyer extends Customer {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id;
     private Double budget;
+    @ManyToOne
+    @JoinColumn(name="employee_id")
+    private Employee employee;
     @Transient
     private List<ViewedRealEstate> viewedProperties;
 
-    public Buyer(int id, String name, String phone, Double budget, Employee employee,List<ViewedRealEstate> viewedProperties) {
-        super(id, name, phone, employee );
+    public Buyer(int id, String name, String phone, Double budget, Employee employee, Employee employee1, List<ViewedRealEstate> viewedProperties) {
+        super(id, name, phone);
         this.budget = budget;
+        this.employee = employee;
         this.viewedProperties = viewedProperties;
     }
 
@@ -46,5 +47,13 @@ public class Buyer extends Customer {
 
     public void setViewedProperties(List<ViewedRealEstate> viewedProperties) {
         this.viewedProperties = viewedProperties;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

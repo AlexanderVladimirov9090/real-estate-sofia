@@ -23,7 +23,7 @@ public class Property {
     private String address;
     private Double price;
     private String realEstateType;
-
+    private boolean isSold = false;
     @ManyToOne
     @JoinColumn(name= "employeeId")
     private Employee employee;
@@ -31,7 +31,7 @@ public class Property {
     @JoinColumn(name= "sellerId")
     private Seller seller;
 
-    public Property(int id, Integer sizeOfRealEstate, String description, String address, Double price, String realEstateType, Employee employee, Seller seller) {
+    public Property(int id, Integer sizeOfRealEstate, String description, String address, Double price, String realEstateType, Employee employee, Seller seller, boolean isSold) {
         this.id = id;
         this.sizeOfRealEstate = sizeOfRealEstate;
         this.description = description;
@@ -40,6 +40,7 @@ public class Property {
         this.realEstateType = realEstateType;
         this.employee = employee;
         this.seller = seller;
+        this.isSold= isSold;
     }
 
     public Property() {
@@ -108,5 +109,13 @@ public class Property {
 
     public void setSeller(Seller seller) {
         this.seller = seller;
+    }
+
+    public boolean isSold() {
+        return isSold;
+    }
+
+    public void setSold(boolean sold) {
+        isSold = sold;
     }
 }

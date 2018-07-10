@@ -23,7 +23,13 @@ import java.util.List;
 @Repository
 public class SellerDAO {
     @Autowired
-   private ApartmentDAO apartmentDAO;
+    private PropertyDAO propertyDAO;
+    @Autowired
+    private ApartmentDAO apartmentDAO;
+    @Autowired
+    private EmployeeDAO employeeDAO;
+    @Autowired
+    private HouseDAO houseDAO;
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -35,17 +41,23 @@ public class SellerDAO {
             seller.setId(rs.getInt("id"));
             seller.setName(rs.getString("name"));
             seller.setPhone(rs.getString("phone"));
-
             return seller;
         }
     }
+    /*
+* TODO
+* SELECT Seller.id, name, phone, employee_id
+FROM Seller
+INNER JOIN Customer ON Seller.ID=Customer.ID;
+* */
+
 
     public List<Seller> findAll() {
-        return jdbcTemplate.query("SELECT * FROM Seller", new SellerRowMapper());
+        return jdbcTemplate.query("SELECT Seller.id, name, phone, employee_id FROM Seller INNER JOIN Customer ON Seller.ID=Customer.ID", new SellerRowMapper());
     }
 
     public Seller findById(int id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM Seller WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<Seller>(Seller.class));
+        return jdbcTemplate.queryForObject("SELECT Seller.id, name, phone, employee_id FROM Seller INNER JOIN Customer ON Seller.ID=Customer.ID WHERE Customer.ID=?", new Object[]{id}, new BeanPropertyRowMapper<Seller>(Seller.class));
     }
 
     public int deleteById(int id) {
@@ -53,41 +65,28 @@ public class SellerDAO {
     }
 
     public int insert(Seller seller) {
-
-    /*   *//*ID  	NAME  	PHONE  	REAL_ESTATE_FOR_SALE_ID
-        *//* return jdbcTemplate.update("INSERT INTO Seller (ID, NAME, PHONE, REAL_ESTATE_FOR_SALE_ID) " + "VALUES(?, ?, ?, (SELECT id FROM REAL_ESTATE_EMPLOYEE WHERE id=? ))",
-                new Object[]{customer.getId(),customer.getName(),customer.getContactByPhone()});
-*/
-        return 0;
+        return jdbcTemplate.update("INSERT INTO Seller (ID, EMPLOYEE_ID) " + "VALUES((SELECT id FROM CUSTOMER WHERE id=? ), (SELECT id FROM EMPLOYEE WHERE id=? ))",
+                seller.getId(), employeeDAO.randomEmployee());
     }
 
-    public int update(Seller Seller) {
-        //TODO Do the updated logic.
- /*       return jdbcTemplate.update("UPDATE Seller" + "SET name=?, address=?, contactByPhone=?  "+ "WHERE id=?",
-                new Object[]{agency.getName(),agency.getAddress(),agency.getContactByPhone(),agency.getId()});
- */
-        return 0;
+
+    public void registerSellingOfApartment(Apartment apartment) {
+        propertyDAO.insert(apartment);
+        apartmentDAO.insert(apartment);
+
     }
 
-    public void registerSellingProperty(Seller seller) {
-        switch (seller.getRealEstatesForSale().getRealEstateType()) {
-            case "Apartment":
-                Apartment sellingApartment = (Apartment) seller.getRealEstatesForSale();
-                apartmentDAO.insert(sellingApartment);
-                break;
-            case "House":
-
-                House house = (House) seller.getRealEstatesForSale();
-
-                break;
-            case "Land":
-                Land land= (Land) seller.getRealEstatesForSale();
-
-                //TODO register selling of a land.
-                break;
-        }
+    public void registerSellingOfHouse(House house) {
+        propertyDAO.insert(house);
+        houseDAO.insert(house);
     }
-    //TODO • Ако е продавач – да регистрира имота си за продажба в агенцията. В такъв
+
+    public void registerSellingOfLand(Land land){
+        propertyDAO.insert(land);
+
+    }
+    //TODO • Ако е продавач – да регистрира имо{
+    // та си за продажба в агенцията. В такъв
     //случай от агенцията му се причислява агент на произволен принцип. Имотът
     //влиза в каталога на агенцията, а клиента – в списъка с продавачи на агента.
 }

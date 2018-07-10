@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created on 07.07.18.
@@ -20,18 +21,14 @@ import java.util.List;
 @Repository
 public class EmployeeDAO {
     @Autowired
-    private AgencyDAO agencyDAO;
-    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     class EmployeeRowMapper implements RowMapper<Employee> {
 
         @Override
         public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
-
             Employee employee = new Employee();
             employee.setId(rs.getInt("id"));
-            employee.setAddress("address");
             employee.setName("name");
             employee.setPhone("phone");
             return employee;
@@ -52,18 +49,24 @@ public class EmployeeDAO {
 
     public int insert(Employee employee) {
 
-        return jdbcTemplate.update("INSERT INTO Employee (id, ADDRESS, NAME, PHONE) " + "VALUES(?, ?, ?, ? )",
-                employee.getId(), employee.getAddress(), employee.getName(), employee.getPhone());
+        return jdbcTemplate.update("INSERT INTO Employee (id, NAME, PHONE, agency_id) " + "VALUES(?, ?, ?, (SELECT id FROM AGENCY WHERE id=? ) )",
+                employee.getId(), employee.getName(), employee.getPhone(), employee.getAgency().getId());
 
     }
 
     public int update(Employee employee) {
-        return jdbcTemplate.update("UPDATE Employee" + "SET ADDRESS=?, NAME=?, PHONE=?  " + "WHERE ID=?",
-                employee.getAddress(), employee.getName(), employee.getPhone(), employee.getId());
+        return jdbcTemplate.update("UPDATE Employee" + "SET NAME=?, PHONE=?  " + "WHERE ID=?"
+                , employee.getName(), employee.getPhone(), employee.getId());
 
     }
 
-    int countEmployees() {
+    public int randomEmployee() {
+        int countedOfEmployees = countEmployees();
+        Random r = new Random();
+        return r.nextInt((countedOfEmployees - 1) + 1) + 1;
+    }
+
+    private int countEmployees() {
         return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM Employee", int.class);
     }
 

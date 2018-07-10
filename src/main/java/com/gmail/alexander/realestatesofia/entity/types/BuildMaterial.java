@@ -11,13 +11,13 @@ import java.util.Map;
  * This is the realEstateType of build material that is used to construct the establishment.
  */
 public class BuildMaterial {
-    public static final Map<String, String> builMaterialType;
+    public static final Map<String, String> type;
     static
     {
-        builMaterialType = new HashMap<String, String>();
-        builMaterialType.put("EPK", "EPK");
-        builMaterialType.put("BRICK", "Brick");
-        builMaterialType.put("PANEL", "Panel");
-        builMaterialType.put("MUDBRICK", "Mudbrick");
+        type = new HashMap<String, String>();
+        type.put("EPK", "EPK");
+        type.put("BRICK", "Brick");
+        type.put("PANEL", "Panel");
+        type.put("MUDBRICK", "Mudbrick");
     }
 }

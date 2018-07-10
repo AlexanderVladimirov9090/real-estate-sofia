@@ -19,8 +19,8 @@ public class House extends Property {
     private int parkingSpace;
     private int yardSize;
 
-    public House(int id, Integer sizeOfRealEstate, String description, String address, Double price, String type, Employee employee, Seller seller, String buildMaterial, String houseType, int parkingSpace, int yardSize) {
-        super(id, sizeOfRealEstate, description, address, price, type, employee, seller);
+    public House(int id, Integer sizeOfRealEstate, String description, String address, Double price, String type, Employee employee, Seller seller, String buildMaterial, String houseType, int parkingSpace, int yardSize, boolean isSold) {
+        super(id, sizeOfRealEstate, description, address, price, type, employee, seller, isSold);
         this.buildMaterial = buildMaterial;
         this.houseType = houseType;
         this.parkingSpace = parkingSpace;

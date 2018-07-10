@@ -1,7 +1,6 @@
 package com.gmail.alexander.realestatesofia.entity.costumers;
 
 import com.gmail.alexander.realestatesofia.entity.abstracts.Customer;
-import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
 import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
 
 import javax.persistence.Entity;
@@ -16,25 +15,24 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Seller extends Customer {
-
     @ManyToOne
-    @JoinColumn(name = "real_estate_for_sale_id")
-    private Property realEstatesForSale;
-
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
     public Seller() {
         super();
     }
 
-    public Seller(int id, String name, String phone, Employee employee,Property realEstatesForSale) {
-        super(id, name, phone, employee);
-        this.realEstatesForSale = realEstatesForSale;
+    public Seller(int id, String name, String phone, Employee employee) {
+        super(id, name, phone);
+
+        this.employee = employee;
     }
 
-    public Property getRealEstatesForSale() {
-        return realEstatesForSale;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setRealEstatesForSale(Property realEstatesForSale) {
-        this.realEstatesForSale = realEstatesForSale;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

@@ -18,7 +18,7 @@ public class ViewedRealEstate {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name="property_for_view")
+    @JoinColumn(name="property_id")
     private Property propertyForView;
     @ManyToOne
     @JoinColumn(name="agent_id")

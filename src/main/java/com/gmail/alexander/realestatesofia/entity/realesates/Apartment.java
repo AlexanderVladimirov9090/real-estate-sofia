@@ -17,8 +17,8 @@ public class Apartment extends Property {
     private String buildMaterial;
     private String apartmentType;
 
-    public Apartment(int id, Integer sizeOfRealEstate, String description, String address, Double price, String type, Employee employee, Seller seller, String buildMaterial, String apartmentType) {
-        super(id, sizeOfRealEstate, description, address, price, type, employee, seller);
+    public Apartment(int id, Integer sizeOfRealEstate, String description, String address, Double price, String type, Employee employee, Seller seller, String buildMaterial, String apartmentType, boolean isSold) {
+        super(id, sizeOfRealEstate, description, address, price, type, employee, seller, isSold);
         this.buildMaterial = buildMaterial;
         this.apartmentType = apartmentType;
     }

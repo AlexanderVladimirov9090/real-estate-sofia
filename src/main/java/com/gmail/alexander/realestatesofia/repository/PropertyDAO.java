@@ -55,9 +55,9 @@ public class PropertyDAO {
     }
 
     public int insert(Property property) {
-        int countOfEmployee = employeeDAO.countEmployees();
-        return jdbcTemplate.update("INSERT INTO Property (id, address, description, price, REAL_ESTATE_TYPE, SIZE_OF_REAL_ESTATE, employee_id, seller_id) " + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Employee WHERE id=?), (SELECT id FROM Seller WHERE id=?) )",
-                property.getId(), property.getAddress(), property.getDescription(), property.getPrice(), property.getRealEstateType(), property.getSizeOfRealEstate(), randomEmployee(countOfEmployee), property.getSeller().getId());
+        System.out.println("Seller`s name: "+property.getSeller().getName());
+        return jdbcTemplate.update("INSERT INTO Property (id, address, description, IS_SOLD ,price, REAL_ESTATE_TYPE, SIZE_OF_REAL_ESTATE, employee_id, seller_id) " + "VALUES(?, ?, ?, ?, ?, ?, ?, (SELECT EMPLOYEE_ID FROM Seller WHERE id=?), (SELECT EMPLOYEE_ID FROM Seller WHERE id=?) )",
+                property.getId(), property.getAddress(), property.getDescription(), property.isSold(), property.getPrice(), property.getRealEstateType(), property.getSizeOfRealEstate(), property.getSeller().getId(), property.getSeller().getId());
     }
 
     public int update(Property property) {
@@ -71,11 +71,6 @@ public class PropertyDAO {
                 property.getSeller().getId(),
                 property.getId());
 
-    }
-
-    private int randomEmployee(int countOfEmployees) {
-        Random r = new Random();
-        return r.nextInt((countOfEmployees - 1) + 1) + 1;
     }
 
 }

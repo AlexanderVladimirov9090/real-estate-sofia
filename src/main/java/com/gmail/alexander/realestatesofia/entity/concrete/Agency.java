@@ -1,7 +1,6 @@
 package com.gmail.alexander.realestatesofia.entity.concrete;
 
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -16,25 +15,21 @@ import java.util.List;
 public class Agency {
     //Using annotation to show the framework that this is the id of the object and how to be used.
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     private String name;
     private String address;
     private String contactByPhone;
-    //This is how tell to the framework that this is not a Column of table.
-    @Transient
-    private List<Employee> employees;
 
     public Agency() {
     }
 
-    public Agency(int id, String name, String address, String contactByPhone, List<Employee> employees) {
+    public Agency(int id, String name, String address, String contactByPhone) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.contactByPhone = contactByPhone;
-        //    this.employees = employees;
     }
 
     public int getId() {
@@ -69,11 +64,4 @@ public class Agency {
         this.contactByPhone = contactByPhone;
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
 }

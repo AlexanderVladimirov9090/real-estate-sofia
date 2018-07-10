@@ -33,7 +33,6 @@ public class CustomerDAO {
             customer.setId(rs.getInt("id"));
             customer.setPhone(rs.getString("phone"));
             customer.setName(rs.getString("name"));
-            customer.setEmployee(employeeDAO.findById(rs.getInt("id")));
             return customer;
         }
     }
@@ -51,20 +50,13 @@ public class CustomerDAO {
     }
 
     public int insert(Customer customer) {
-
-        return jdbcTemplate.update("INSERT INTO Seller (ID, NAME, PHONE, REAL_ESTATE_EMPLOYEE_ID) " + "VALUES(?, ?, ?, (SELECT id FROM REAL_ESTATE_EMPLOYEE WHERE id=? ))",
-                customer.getId(), customer.getName(), customer.getPhone(), randomEmployee(customer.getEmployee().getId()));
+        return jdbcTemplate.update("INSERT INTO Customer (ID, NAME, PHONE) " + "VALUES(?, ?, ?)",
+                customer.getId(), customer.getName(), customer.getPhone());
     }
 
     public int update(Customer customer) {
-        return jdbcTemplate.update("UPDATE Seller" + "SET name=?, phone=?, REAL_ESTATE_EMPLOYEE_ID=?  " + "WHERE id=?",
-                customer.getName(), customer.getPhone(), customer.getEmployee().getId(), customer.getId());
+        return jdbcTemplate.update("UPDATE Customer" + "SET name=?, phone=?  " + "WHERE id=?",
+                customer.getName(), customer.getPhone(), customer.getId());
 
-    }
-
-    //TODO extract method.
-    private int randomEmployee(int countOfEmployees) {
-        Random r = new Random();
-        return r.nextInt((countOfEmployees - 1) + 1) + 1;
     }
 }

@@ -21,8 +21,7 @@ import java.util.Random;
  */
 @Repository
 public class ApartmentDAO {
-    @Autowired
-    private EmployeeDAO employeeDAO;
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -37,24 +36,12 @@ public class ApartmentDAO {
             property.setSizeOfRealEstate(rs.getInt("SIZE_OF_REAL_ESTATE"));
             property.setApartmentType(rs.getString("apartment_Type"));
             property.setBuildMaterial("build_Material");
-            Employee employee = employeeDAO.findById(rs.getInt("employee_id"));
-            property.setEmployee(employee);
             return property;
         }
     }
-/*
-* TODO
-* SELECT A
-FROM
-(
-    SELECT A, B FROM TableA
-    UNION
-    SELECT A, B FROM TableB
-) AS tbl
-WHERE B > 'some value'
-* */
+
     public List<Apartment> findAll() {
-        return jdbcTemplate.query("SELECT * FROM Apartment ORDER BY PRICE DESC", new ApartmentRowMapper());
+        return jdbcTemplate.query("SELECT * FROM ( SELECT * FROM Property UNION SELECT * FROM Apartment ) AS ALL_APARTMENTS ORDER BY PRICE DESC", new ApartmentRowMapper());
 
     }
 
@@ -67,9 +54,8 @@ WHERE B > 'some value'
     }
 
     public int insert(Apartment apartment) {
-        int countOfEmployee = employeeDAO.countEmployees();
-        return jdbcTemplate.update("INSERT INTO Apartment (id, address, description, price, REAL_ESTATE_TYPE, SIZE_OF_REAL_ESTATE, apartment_Type, build_Material, employee_id, seller_id) " + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Employee WHERE id=?), (SELECT id FROM Seller WHERE id=?) )",
-                apartment.getId(), apartment.getAddress(), apartment.getDescription(), apartment.getPrice(), apartment.getRealEstateType(), apartment.getSizeOfRealEstate(), apartment.getApartmentType(), apartment.getBuildMaterial(), randomEmployee(countOfEmployee), apartment.getSeller().getId());
+        return jdbcTemplate.update("INSERT INTO Apartment (ID, APARTMENT_TYPE, BUILD_MATERIAL) " + "VALUES((SELECT id FROM Property WHERE id=?), ?, ?)",
+                apartment.getId(), apartment.getApartmentType(), apartment.getBuildMaterial());
 
     }
 
@@ -86,10 +72,4 @@ WHERE B > 'some value'
                 apartment.getId());
 
     }
-
-    private int randomEmployee(int countOfEmployees) {
-        Random r = new Random();
-        return r.nextInt((countOfEmployees - 1) + 1) + 1;
-    }
-
 }

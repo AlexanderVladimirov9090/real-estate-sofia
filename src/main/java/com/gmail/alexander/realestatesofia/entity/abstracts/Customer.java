@@ -1,7 +1,5 @@
 package com.gmail.alexander.realestatesofia.entity.abstracts;
 
-import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
-
 import javax.persistence.*;
 
 /**
@@ -9,30 +7,27 @@ import javax.persistence.*;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
- * This is the abstract class of Customer that is extendet by Buyer and Seller conreate classes.
+ * This is the main customer class that is used
+ * for joining field that are dubed in Buyer and Seller classes.
  */
 @Entity
-@Table(name = "customers")
+@Table(name = "customer")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     private String phone;
-    @ManyToOne
-    @JoinColumn(name="REAL_ESTATE_EMPLOYEE_ID")
-    private Employee employee;
 
     public Customer() {
     }
 
-    public Customer(int id, String name, String phone,Employee employee) {
+    public Customer(int id, String name, String phone) {
         this.id = id;
         this.name = name;
         this.phone = phone;
-        this.employee=employee;
     }
 
     public int getId() {
@@ -59,11 +54,4 @@ public class Customer {
         this.phone = phone;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
 }

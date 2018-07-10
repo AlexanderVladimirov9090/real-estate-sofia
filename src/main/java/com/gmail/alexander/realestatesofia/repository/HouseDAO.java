@@ -45,6 +45,7 @@ public class HouseDAO {
             return property;
         }
     }
+//TODO Register house  copy modify Apartment`s logic for this one.
 
     public List<House> findAll() {
         return jdbcTemplate.query("SELECT * FROM House ORDER BY PRICE DESC", new HouseRowMapper());
@@ -60,8 +61,7 @@ public class HouseDAO {
     }
 
     public int insert(House house) {
-        int countOfEmployee = employeeDAO.countEmployees();/*
-        return jdbcTemplate.update("INSERT INTO House (id, address, description, price, REAL_ESTATE_TYPE, SIZE_OF_REAL_ESTATE, apartment_Type, build_Material, employee_id, seller_id) " + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Employee WHERE id=?), (SELECT id FROM Seller WHERE id=?) )",
+       /* return jdbcTemplate.update("INSERT INTO House (id, address, description, price, REAL_ESTATE_TYPE, SIZE_OF_REAL_ESTATE, apartment_Type, build_Material, employee_id, seller_id) " + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, (SELECT id FROM Employee WHERE id=?), (SELECT id FROM Seller WHERE id=?) )",
                 apartment.getId(), apartment.getAddress(), apartment.getDescription(), apartment.getPrice(), apartment.getRealEstateType(), apartment.getSizeOfRealEstate(), apartment.getApartmentType(), apartment.getBuildMaterial(), randomEmployee(countOfEmployee), apartment.getSeller().getId());
       */  return 0;
     }
