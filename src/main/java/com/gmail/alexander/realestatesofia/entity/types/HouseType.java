@@ -17,6 +17,6 @@ public class HouseType {
     {
         houseType = new HashMap<String, String>();
         houseType.put("FLOOR_OF_HOUSE", "Floor Of House");
-        houseType.put("House", "House");}
+        houseType.put("HOUSE", "House");}
 
 }

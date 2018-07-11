@@ -24,7 +24,7 @@ public class Employee {
     private String phone;
     @ManyToOne
     @JoinColumn(name = "agency_id")
-    private Agency agency;
+    private Agency agency = new Agency();
     @Transient
     private List<Seller> sellers;
     @Transient

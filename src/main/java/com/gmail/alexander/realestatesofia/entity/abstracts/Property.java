@@ -26,10 +26,10 @@ public class Property {
     private boolean isSold = false;
     @ManyToOne
     @JoinColumn(name= "employeeId")
-    private Employee employee;
+    private Employee employee = new Employee();
     @ManyToOne
     @JoinColumn(name= "sellerId")
-    private Seller seller;
+    private Seller seller = new Seller();
 
     public Property(int id, Integer sizeOfRealEstate, String description, String address, Double price, String realEstateType, Employee employee, Seller seller, boolean isSold) {
         this.id = id;

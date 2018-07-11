@@ -33,28 +33,36 @@ public class LandDAO {
         public Land mapRow(ResultSet rs, int rowNum) throws SQLException {
             Land land = new Land();
             land.setId(rs.getInt("id"));
-            land.setLandType("land_type");
+            land.setAddress(rs.getString("address"));
+            land.setDescription(rs.getString("description"));
+            land.setPrice(rs.getDouble("price"));
+            land.setSizeOfRealEstate(rs.getInt("size_of_real_estate"));
+            land.setRealEstateType(rs.getString("real_estate_type"));
+            land.setLandType(rs.getString("land_type"));
             land.setRegulated(rs.getBoolean("is_regulated"));
+            land.setSold(rs.getBoolean("is_sold"));
+            land.getSeller().setId(rs.getInt("seller_id"));
+            land.getEmployee().setId(rs.getInt("employee_id"));
             return land;
         }
     }
 
     public List<Land> findAll() {
-        return jdbcTemplate.query("SELECT * FROM ( SELECT * FROM Property UNION SELECT * FROM Apartment ) AS ALL_APARTMENTS ORDER BY PRICE DESC", new LandRowMapper());
+        return jdbcTemplate.query("SELECT Land.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, land_type, is_sold, is_regulated, seller_id, employee_id FROM Land INNER JOIN Property ON Land.ID=Property.ID ORDER BY PRICE DESC", new LandRowMapper());
 
     }
 
     public Land findById(int id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM Apartment WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<Land>(Land.class));
+        return jdbcTemplate.queryForObject("SELECT Land.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, land_type, is_sold, is_regulated, seller_id, employee_id FROM Land INNER JOIN Property ON Land.ID=Property.ID WHERE Property.ID=?", new Object[]{id}, new BeanPropertyRowMapper<Land>(Land.class));
     }
 
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM Apartment WHERE id=?", id);
     }
 
-    public int insert(Apartment apartment) {
-        return jdbcTemplate.update("INSERT INTO Apartment (ID, APARTMENT_TYPE, BUILD_MATERIAL) " + "VALUES((SELECT id FROM Property WHERE id=?), ?, ?)",
-                apartment.getId(), apartment.getApartmentType(), apartment.getBuildMaterial());
+    public int insert(Land land) {
+        return jdbcTemplate.update("INSERT INTO Land (ID, is_regulated, land_type) " + "VALUES((SELECT id FROM Property WHERE id=?), ?, ?)",
+                land.getId(), land.isRegulated(), land.getLandType());
 
     }
 

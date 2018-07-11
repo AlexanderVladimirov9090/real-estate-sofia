@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created on 08.07.18.
@@ -22,8 +21,7 @@ import java.util.Random;
 public class CustomerDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    @Autowired
-    private EmployeeDAO employeeDAO;
+
 
     class CustomerRowMapper implements RowMapper<Customer> {
 

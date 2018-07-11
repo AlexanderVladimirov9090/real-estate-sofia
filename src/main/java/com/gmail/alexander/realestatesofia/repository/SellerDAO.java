@@ -22,15 +22,10 @@ import java.util.List;
  */
 @Repository
 public class SellerDAO {
-    @Autowired
-    private PropertyDAO propertyDAO;
-    @Autowired
-    private ApartmentDAO apartmentDAO;
+
     @Autowired
     private EmployeeDAO employeeDAO;
-    @Autowired
-    private HouseDAO houseDAO;
-    @Autowired
+     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     class SellerRowMapper implements RowMapper<Seller> {
@@ -49,6 +44,7 @@ public class SellerDAO {
 * SELECT Seller.id, name, phone, employee_id
 FROM Seller
 INNER JOIN Customer ON Seller.ID=Customer.ID;
+SELECT * FROM ( SELECT * FROM Land UNION SELECT * FROM Property ) AS ALL_LAND ORDER
 * */
 
 
@@ -69,22 +65,6 @@ INNER JOIN Customer ON Seller.ID=Customer.ID;
                 seller.getId(), employeeDAO.randomEmployee());
     }
 
-
-    public void registerSellingOfApartment(Apartment apartment) {
-        propertyDAO.insert(apartment);
-        apartmentDAO.insert(apartment);
-
-    }
-
-    public void registerSellingOfHouse(House house) {
-        propertyDAO.insert(house);
-        houseDAO.insert(house);
-    }
-
-    public void registerSellingOfLand(Land land){
-        propertyDAO.insert(land);
-
-    }
     //TODO • Ако е продавач – да регистрира имо{
     // та си за продажба в агенцията. В такъв
     //случай от агенцията му се причислява агент на произволен принцип. Имотът

@@ -16,7 +16,7 @@ public class LandType {
     {
         landType = new HashMap<String, String>();
         landType.put("FIELD", "Field");
-        landType.put("Lawn", "Lawn");
-        landType.put("Forest", "Forest");
+        landType.put("LAWN", "Lawn");
+        landType.put("FOREST", "Forest");
     }
 }

@@ -18,7 +18,7 @@ public class Buyer extends Customer {
     private Double budget;
     @ManyToOne
     @JoinColumn(name="employee_id")
-    private Employee employee;
+    private Employee employee = new Employee();
     @Transient
     private List<ViewedRealEstate> viewedProperties;
 

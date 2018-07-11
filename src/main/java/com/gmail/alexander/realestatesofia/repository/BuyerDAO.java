@@ -22,9 +22,10 @@ import java.util.List;
 @Repository
 public class BuyerDAO {
     @Autowired
-    private EmployeeDAO employeeDAO;
-    @Autowired
     private JdbcTemplate jdbcTemplate;
+
+  @Autowired
+  private EmployeeDAO employeeDAO;
 
     class BuyerRowMapper implements RowMapper<Buyer> {
 
@@ -36,35 +37,21 @@ public class BuyerDAO {
             buyer.setName(rs.getString("name"));
             buyer.setPhone(rs.getString("phone"));
             buyer.setBudget(rs.getDouble("budget"));
-            Employee employee = new Employee();
-            employee.setId(rs.getInt("employee_id"));
-            buyer.setEmployee( employee);
+            buyer.getEmployee().setId(rs.getInt("employee_id"));
             return buyer;
         }
     }
-    /*
-* TODO
-* SELECT A
-FROM
-(
-    SELECT A, B FROM TableA
-    UNION
-    SELECT A, B FROM TableB
-) AS tbl
-WHERE B > 'some value'
-* */
+
 
 
     public List<Buyer> findAll() {
-        return jdbcTemplate.query("SELECT * FROM Buyer ", new BuyerRowMapper());
+        return jdbcTemplate.query("SELECT Buyer.id, budget, name, phone, employee_id FROM Buyer INNER JOIN Customer ON Buyer.ID=Customer.ID ", new BuyerRowMapper());
 
     }
 
     public Buyer findById(int id) {
-        Buyer buyer = jdbcTemplate.queryForObject("SELECT * FROM Buyer WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<Buyer>(Buyer.class));
-        buyer.setEmployee(employeeDAO.findById(buyer.getEmployee().getId()));
-        return buyer;
-    }
+return jdbcTemplate.queryForObject("SELECT Buyer.id, name, phone, budget, employee_id FROM Buyer INNER JOIN Customer ON Buyer.ID=Customer.ID WHERE Customer.ID=?", new Object[]{id}, new BeanPropertyRowMapper<Buyer>(Buyer.class));
+       }
 
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM Buyer WHERE id=?", id);

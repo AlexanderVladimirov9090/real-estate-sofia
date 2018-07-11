@@ -4,6 +4,7 @@ import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
 import com.gmail.alexander.realestatesofia.entity.costumers.Buyer;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -21,11 +22,53 @@ public class ViewedRealEstate {
     @JoinColumn(name="property_id")
     private Property propertyForView;
     @ManyToOne
-    @JoinColumn(name="agent_id")
-    private Employee agent;
-    @ManyToOne
-    @JoinColumn(name="buyers_id")
+    @JoinColumn(name="buyer_id")
     private Buyer buyers;
+    @Column(name="date_of_view")
+    @Basic
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date realEstateViewingDate = new Date();
 
-    private Date realEstateViewingDate;
+    public ViewedRealEstate(int id, Property propertyForView, Buyer buyers, Date realEstateViewingDate) {
+        this.id = id;
+        this.propertyForView = propertyForView;
+        this.buyers = buyers;
+        this.realEstateViewingDate = realEstateViewingDate;
+    }
+
+    public ViewedRealEstate() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Property getPropertyForView() {
+        return propertyForView;
+    }
+
+    public void setPropertyForView(Property propertyForView) {
+        this.propertyForView = propertyForView;
+    }
+
+    public Buyer getBuyers() {
+        return buyers;
+    }
+
+    public void setBuyers(Buyer buyers) {
+        this.buyers = buyers;
+    }
+
+    public Date getRealEstateViewingDate() {
+        return realEstateViewingDate;
+    }
+
+    public void setRealEstateViewingDate(Date date) {
+        realEstateViewingDate.setTime(date.getTime());
+    }
 }

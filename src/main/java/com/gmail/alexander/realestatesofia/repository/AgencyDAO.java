@@ -2,8 +2,6 @@ package com.gmail.alexander.realestatesofia.repository;
 
 import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
 import com.gmail.alexander.realestatesofia.entity.concrete.Agency;
-import com.gmail.alexander.realestatesofia.entity.costumers.Buyer;
-import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,8 +20,7 @@ import java.util.List;
  */
 @Repository
 public class AgencyDAO {
-    @Autowired
-  private   PropertyDAO propertyDAO;
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -62,10 +59,5 @@ public class AgencyDAO {
         return jdbcTemplate.update("UPDATE Agency " + "SET name=?, address=?, contact_By_Phone=?  " + "WHERE id=?",
                 agency.getName(), agency.getAddress(), agency.getContactByPhone(), agency.getId());
     }
-
-    public List<Property> gatCataklog(){
-        return propertyDAO.findAll();
-    }
-
 
 }

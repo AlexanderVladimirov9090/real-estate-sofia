@@ -22,6 +22,12 @@ import java.util.Random;
 public class EmployeeDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private final AgencyDAO agencyDAO;
+
+    public EmployeeDAO(AgencyDAO agencyDAO) {
+        this.agencyDAO = agencyDAO;
+    }
 
     class EmployeeRowMapper implements RowMapper<Employee> {
 
@@ -31,6 +37,7 @@ public class EmployeeDAO {
             employee.setId(rs.getInt("id"));
             employee.setName("name");
             employee.setPhone("phone");
+            employee.getAgency().setId(rs.getInt("agency_id"));
             return employee;
         }
     }

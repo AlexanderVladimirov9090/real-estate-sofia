@@ -2,6 +2,7 @@ package com.gmail.alexander.realestatesofia.repository;
 
 import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
 import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
+import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,8 +23,6 @@ import java.util.Random;
 @Repository
 public class PropertyDAO {
     @Autowired
-    private EmployeeDAO employeeDAO;
-    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     class PropertyRowMapper implements RowMapper<Property> {
@@ -35,8 +34,8 @@ public class PropertyDAO {
             property.setPrice(rs.getDouble("price"));
             property.setDescription(rs.getString("description"));
             property.setSizeOfRealEstate(rs.getInt("SIZE_OF_REAL_ESTATE"));
-            Employee employee = employeeDAO.findById(rs.getInt("employee_id"));
-            property.setEmployee(employee);
+            property.getSeller().setId(rs.getInt("seller_id"));
+            property.getEmployee().setId(rs.getInt("employee_id"));
             return property;
         }
     }

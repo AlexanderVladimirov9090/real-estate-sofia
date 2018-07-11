@@ -1,6 +1,5 @@
 package com.gmail.alexander.realestatesofia.repository;
 
-import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
 import com.gmail.alexander.realestatesofia.entity.realesates.Apartment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created on 07.07.18.
@@ -29,24 +27,29 @@ public class ApartmentDAO {
 
         @Override
         public Apartment mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Apartment property = new Apartment();
-            property.setAddress(rs.getString("address"));
-            property.setPrice(rs.getDouble("price"));
-            property.setDescription(rs.getString("description"));
-            property.setSizeOfRealEstate(rs.getInt("SIZE_OF_REAL_ESTATE"));
-            property.setApartmentType(rs.getString("apartment_Type"));
-            property.setBuildMaterial("build_Material");
-            return property;
+            Apartment apartment = new Apartment();
+            apartment.setId(rs.getInt("id"));
+            apartment.setAddress(rs.getString("address"));
+            apartment.setPrice(rs.getDouble("price"));
+            apartment.setDescription(rs.getString("description"));
+            apartment.setSizeOfRealEstate(rs.getInt("SIZE_OF_REAL_ESTATE"));
+            apartment.setApartmentType(rs.getString("apartment_Type"));
+            apartment.setRealEstateType(rs.getString("REAL_ESTATE_TYPE"));
+            apartment.setBuildMaterial("build_Material");
+            apartment.setSold(rs.getBoolean("is_sold"));
+            apartment.getSeller().setId(rs.getInt("seller_id"));
+            apartment.getEmployee().setId(rs.getInt("employee_id"));
+            return apartment;
         }
     }
 
     public List<Apartment> findAll() {
-        return jdbcTemplate.query("SELECT * FROM ( SELECT * FROM Property UNION SELECT * FROM Apartment ) AS ALL_APARTMENTS ORDER BY PRICE DESC", new ApartmentRowMapper());
+        return jdbcTemplate.query("SELECT Apartment.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, apartment_type, build_Material, is_sold, employee_id, seller_id FROM Apartment INNER JOIN Property ON Apartment.ID=Property.ID ORDER BY PRICE DESC", new ApartmentRowMapper());
 
     }
 
     public Apartment findById(int id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM Apartment WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<Apartment>(Apartment.class));
+        return jdbcTemplate.queryForObject("SELECT Apartment.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, apartment_type, build_Material FROM Apartment INNER JOIN Property ON Apartment.ID=Property.ID WHERE Property.ID=?", new Object[]{id}, new BeanPropertyRowMapper<Apartment>(Apartment.class));
     }
 
     public int deleteById(int id) {
