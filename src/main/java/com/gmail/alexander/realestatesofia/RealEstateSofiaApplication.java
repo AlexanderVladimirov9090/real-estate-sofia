@@ -49,46 +49,44 @@ public class RealEstateSofiaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//TODO This is the registration section
-        Agency agency = new Agency();
-        agency.setId(1);
+//TODO This is some test data
+       Agency agency = new Agency();
         agency.setName("Sofia Real Estate Agency");
         agency.setAddress("Sofia, Sofia Street number 1");
-        agency.setContactByPhone("+35941234734345");
+        agency.setPhone("+35941234734345");
         agencyDAO.insert(agency);
         System.out.println("Agency:");
-        Agency expectedAgecy = agencyDAO.findById(1);
-        System.out.println("Agency: " + expectedAgecy.getId() + expectedAgecy.getName() + expectedAgecy.getAddress());
+            Agency expectedAgecy = agencyDAO.findById(1);
+             System.out.println("Agency: " + expectedAgecy.getId() + expectedAgecy.getName() + expectedAgecy.getAddress());
 
         Employee employee1 = new Employee();
-        employee1.setId(1);
         employee1.setName("Ivan Ivanov aka. Vankata");
         employee1.setPhone("+359909090");
         employee1.setAgency(agency);
         employeeDAO.insert(employee1);
+
         Employee expectedEmproyee = employeeDAO.findById(1);
         System.out.println("Employee: " + expectedEmproyee.getId() + expectedEmproyee.getName() + expectedEmproyee.getPhone());
 
+
         Customer customer = new Customer();
         customer.setName("Ivan");
-        customer.setPhone("+349123123123");
-        customer.setId(1);
+        customer.setPhone("34912312");
         customerDAO.insert(customer);
-        Customer expectedCustomer = customerDAO.findById(1);
+       Customer expectedCustomer = customerDAO.findById(1);
         System.out.println("Customer: " + expectedCustomer.getPhone() + expectedCustomer.getName() + expectedCustomer.getId());
         Seller seller = new Seller();
-        seller.setId(customer.getId());
+        seller.setPhone("34912312");
         sellerDAO.insert(seller);
         Seller expectedSeller = sellerDAO.findById(1);
-        System.out.println("Seller: " + expectedSeller.getId() + expectedSeller.getName() + expectedSeller.getPhone());
+       System.out.println("Seller: " + expectedSeller.getId() + expectedSeller.getName() + expectedSeller.getPhone());
         Buyer buyer = new Buyer();
         buyer.setBudget(10000.00);
-        buyer.setId(1);
+        buyer.setPhone("34912312");
         buyerDAO.insert(buyer);
         Buyer expectedBuyer = buyerDAO.findById(1);
         System.out.println("Buyer: " + expectedBuyer.getId() + expectedBuyer.getName() + expectedBuyer.getPhone() + expectedBuyer.getBudget());
-        Property property = new Property();
-        property.setId(1);
+       /* Property property = new Property();
         property.setAddress("Some Address");
         property.setDescription("Some KInd of description.");
         property.setRealEstateType(RealEstateType.realEstateType.get("APARTMENT"));
@@ -96,31 +94,28 @@ public class RealEstateSofiaApplication implements CommandLineRunner {
         property.setSizeOfRealEstate(200);
         property.setSeller(expectedSeller);
         propertyDAO.insert(property);
-        Property expectedProperty = propertyDAO.findById(1);
-        System.out.println("Property: " + expectedProperty.getId() + expectedProperty.getRealEstateType() + expectedProperty.getDescription() + expectedProperty.getPrice() + expectedProperty.getAddress() + expectedProperty.getSizeOfRealEstate() + expectedProperty.isSold());
+        Property expectedProperty = propertyDAO.findById(0);
+       System.out.println("Property: " + expectedProperty.getId() + expectedProperty.getRealEstateType() + expectedProperty.getDescription() + expectedProperty.getPrice() + expectedProperty.getAddress() + expectedProperty.getSizeOfRealEstate() + expectedProperty.isSold());
         Apartment apartment = new Apartment();
-        apartment.setId(1);
         apartment.setBuildMaterial(BuildMaterial.type.get("BRICK"));
         apartment.setApartmentType(ApartmentType.type.get("STUDIO"));
         apartmentDAO.insert(apartment);
-        Apartment expectedApartment = apartmentDAO.findById(1);
+        Apartment expectedApartment = apartmentDAO.findById(0);
         System.out.println("Apartment: " + expectedApartment.getId() + expectedApartment.getRealEstateType() + expectedApartment.getDescription() + expectedApartment.getPrice() + expectedApartment.getAddress() + expectedApartment.getSizeOfRealEstate() + expectedApartment.getBuildMaterial() + expectedApartment.getApartmentType() + expectedApartment.isSold());
         House house = new House();
-        house.setId(1);
         house.setParkingSpace(2);
         house.setHouseType(HouseType.houseType.get("HOUSE"));
         house.setBuildMaterial(BuildMaterial.type.get("BRICK"));
         house.setYardSize(200);
         houseDAO.insert(house);
-        House expectedHouse = houseDAO.findById(1);
+        House expectedHouse = houseDAO.findById(0);
         System.out.println("House: " + expectedHouse.getId() + expectedHouse.getRealEstateType() + expectedHouse.getDescription() + expectedHouse.getPrice() + expectedHouse.getAddress() + expectedHouse.getSizeOfRealEstate() + expectedHouse.getBuildMaterial() + expectedHouse.getHouseType() + expectedHouse.isSold() + expectedHouse.getYardSize() + expectedHouse.getBuildMaterial() + expectedHouse.getParkingSpace());
 
         Land land = new Land();
-        land.setId(1);
         land.setRegulated(true);
         land.setLandType(LandType.landType.get("LAWN"));
         landDAO.insert(land);
-        Land expectedLand = landDAO.findById(1);
+        Land expectedLand = landDAO.findById(0);
         System.out.println("Land:" + expectedLand.getId() + expectedLand.getRealEstateType() + expectedLand.getDescription() + expectedLand.getPrice() + expectedLand.getAddress() + expectedLand.getSizeOfRealEstate() + expectedLand.getLandType() + expectedLand.isSold());
 
         ViewedRealEstate viewedRealEstate = new ViewedRealEstate();
@@ -130,7 +125,7 @@ public class RealEstateSofiaApplication implements CommandLineRunner {
         viewedRealEstate.setRealEstateViewingDate(new Timestamp(System.currentTimeMillis()));
         viewedRealEstateDAO.insert(viewedRealEstate);
         ViewedRealEstate expectedViewedRealEstate = viewedRealEstateDAO.findById(1);
-        System.out.println("ViewedRealEstate: " + expectedViewedRealEstate.getId() + expectedViewedRealEstate.getRealEstateViewingDate().toString());
+        System.out.println("ViewedRealEstate: " + expectedViewedRealEstate.getId() + expectedViewedRealEstate.getRealEstateViewingDate().toString()+ viewedRealEstate.getBuyer().getId()+ viewedRealEstate.getPropertyForView().getId());
 
         List<Agency> agencies = agencyDAO.findAll();
         for (Agency each : agencies
@@ -183,5 +178,5 @@ public class RealEstateSofiaApplication implements CommandLineRunner {
         for (Land each : lands){
             System.out.println("Each Land: " + each.getAddress());
         }
-    }
+    */}
 }

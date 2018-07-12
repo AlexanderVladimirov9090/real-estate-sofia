@@ -31,8 +31,18 @@ public class HouseDAO {
         this.sellerDAO = sellerDAO;
     }
 
+    /**
+     * This class is used to Map Data to The objects fields.
+     */
     class HouseRowMapper implements RowMapper<House> {
-
+        /**
+         * Maps data to Object
+         *
+         * @param rs     is used to store all data from database and then extracted to the object`s fields.
+         * @param rowNum Store what number of a row are we in.
+         * @return Object from given class.
+         * @throws SQLException
+         */
         @Override
         public House mapRow(ResultSet rs, int rowNum) throws SQLException {
             House house = new House();
@@ -51,14 +61,33 @@ public class HouseDAO {
         }
     }
 
+    /**
+     * Finds all Records of House
+     *
+     * @return
+     */
+
     public List<House> findAll() {
         return jdbcTemplate.query("SELECT House.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, house_type, build_Material, parking_space, yard_size, seller_id, employee_id FROM House INNER JOIN Property ON House.ID=Property.ID ORDER BY PRICE DESC", new HouseRowMapper());
 
     }
 
+    /**
+     * Finds single record by id
+     *
+     * @param id given id for the fetching of data.
+     * @return
+     */
     public House findById(int id) {
         return jdbcTemplate.queryForObject("SELECT House.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, house_type, build_Material, parking_space, yard_size, seller_id, employee_id FROM House INNER JOIN Property ON House.ID=Property.ID WHERE Property.ID=?", new Object[]{id}, new BeanPropertyRowMapper<House>(House.class));
     }
+
+    /**
+     * Deletes Record for the database
+     *
+     * @param id for deletion
+     * @return
+     */
 
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM House WHERE id=?", id);

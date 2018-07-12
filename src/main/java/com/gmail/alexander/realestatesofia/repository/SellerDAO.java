@@ -1,9 +1,6 @@
 package com.gmail.alexander.realestatesofia.repository;
 
 import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
-import com.gmail.alexander.realestatesofia.entity.realesates.Apartment;
-import com.gmail.alexander.realestatesofia.entity.realesates.House;
-import com.gmail.alexander.realestatesofia.entity.realesates.Land;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,11 +22,21 @@ public class SellerDAO {
 
     @Autowired
     private EmployeeDAO employeeDAO;
-     @Autowired
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    /**
+     * This class is used to Map Data to The objects fields.
+     */
     class SellerRowMapper implements RowMapper<Seller> {
-
+        /**
+         * Maps data to Object
+         *
+         * @param rs     is used to store all data from database and then extracted to the object`s fields.
+         * @param rowNum Store what number of a row are we in.
+         * @return Object from given class.
+         * @throws SQLException
+         */
         @Override
         public Seller mapRow(ResultSet rs, int rowNum) throws SQLException {
             Seller seller = new Seller();
@@ -39,34 +46,40 @@ public class SellerDAO {
             return seller;
         }
     }
-    /*
-* TODO
-* SELECT Seller.id, name, phone, employee_id
-FROM Seller
-INNER JOIN Customer ON Seller.ID=Customer.ID;
-SELECT * FROM ( SELECT * FROM Land UNION SELECT * FROM Property ) AS ALL_LAND ORDER
-* */
 
+    /**
+     * Finds all Records of Seller
+     *
+     * @return
+     */
 
     public List<Seller> findAll() {
         return jdbcTemplate.query("SELECT Seller.id, name, phone, employee_id FROM Seller INNER JOIN Customer ON Seller.ID=Customer.ID", new SellerRowMapper());
     }
 
+    /**
+     * Finds single record by id
+     *
+     * @param id given id for the fetching of data.
+     * @return
+     */
     public Seller findById(int id) {
         return jdbcTemplate.queryForObject("SELECT Seller.id, name, phone, employee_id FROM Seller INNER JOIN Customer ON Seller.ID=Customer.ID WHERE Customer.ID=?", new Object[]{id}, new BeanPropertyRowMapper<Seller>(Seller.class));
     }
+
+    /**
+     * Deletes Record for the database
+     *
+     * @param id for deletion
+     * @return
+     */
 
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM Seller WHERE id=?", id);
     }
 
     public int insert(Seller seller) {
-        return jdbcTemplate.update("INSERT INTO Seller (ID, EMPLOYEE_ID) " + "VALUES((SELECT id FROM CUSTOMER WHERE id=? ), (SELECT id FROM EMPLOYEE WHERE id=? ))",
-                seller.getId(), employeeDAO.randomEmployee());
+        return jdbcTemplate.update("INSERT INTO Seller (ID, EMPLOYEE_ID) " + "VALUES((SELECT id FROM CUSTOMER WHERE phone=?), (SELECT id FROM EMPLOYEE WHERE id=? ))",
+                seller.getPhone(), employeeDAO.randomEmployee());
     }
-
-    //TODO • Ако е продавач – да регистрира имо{
-    // та си за продажба в агенцията. В такъв
-    //случай от агенцията му се причислява агент на произволен принцип. Имотът
-    //влиза в каталога на агенцията, а клиента – в списъка с продавачи на агента.
 }

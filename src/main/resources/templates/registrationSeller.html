@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Website CSS style -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+			<!-- Website Font style -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+		<!-- Form validation jscript -->
+		<script src="js/formvalidation.js"> </script>
+
+		<!-- Form registration style -->
+		<link rel="stylesheet" type="text/css" href="css/regformcss/regform.css">
+
+		<!-- Title of the resource.-->
+		<title> Registration </title>
+</head>
+
+<body class="font-applicator">
+
+		<div class="container  roundEdges">
+
+				<!-- This is used as the main row divider. -->
+					<div class="row-fluid main">
+						<div class="main-login">
+							<h2 class="text-center font-applicator roundEdges col-xs-6 col-xs-offset-3">Register to this web page.</h2>
+							<!-- This is the form itself -->
+							<form class="col-xs-6 col-xs-offset-3" name="registration" method="post" onSubmit="return formValidation();" >
+
+
+								<!-- Block of Phone(Social Security Sumber) -->
+								 <div class="from-group">
+
+									<label for="phone" class="transarentAndMoveLeft">Phone:</label>
+									<div class="input-group  col-sm-4 ">
+										<span class="input-group-addon font-applicator" style="padding-right: 10px;"><i class="fa fa-drivers-license" aria-hidden="true"></i></span>
+										<input type="text" class="form-control font-applicator" name="phone" id="phone"  maxlength="10"/>
+									</div>
+								</div>
+
+								<!-- This is used to display message to the user if validation does not pass -->
+							<p id="message" class="text-center row warningColor"></p>
+
+							<!-- This is the sumbmit button -->
+							<div class="form-group">
+									<button type="submit" class="btn btn-primary ">Submit</button>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -8,8 +8,7 @@ import java.util.Map;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
- *
- *     This is the realEstateType of houses, that could be selled from the agency.
+ *  This class is used to indicate the Type of house.
  */
 public class HouseType {
     public static final Map<String, String> houseType;

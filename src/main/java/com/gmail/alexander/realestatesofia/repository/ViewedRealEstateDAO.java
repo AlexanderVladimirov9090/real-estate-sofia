@@ -23,40 +23,71 @@ public class ViewedRealEstateDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-
+    /**
+     * This class is used to Map Data to The objects fields.
+     */
     class ViewedRealEstateRowMapper implements RowMapper<ViewedRealEstate> {
-
+        /**
+         * Maps data to Object
+         *
+         * @param rs     is used to store all data from database and then extracted to the object`s fields.
+         * @param rowNum Store what number of a row are we in.
+         * @return Object from given class.
+         * @throws SQLException
+         */
         @Override
         public ViewedRealEstate mapRow(ResultSet rs, int rowNum) throws SQLException {
             ViewedRealEstate viewedRealEstate = new ViewedRealEstate();
             viewedRealEstate.setId(rs.getInt("id"));
+            viewedRealEstate.getBuyer().setId(rs.getInt("buyer_id"));
+            viewedRealEstate.getPropertyForView().setId(rs.getInt("property_id  "));
             viewedRealEstate.setRealEstateViewingDate(rs.getTimestamp("date_of_view"));
             return viewedRealEstate;
         }
     }
+
+    /**
+     * Finds all Records of ViewedRealEstate
+     *
+     * @return
+     */
 
     public List<ViewedRealEstate> findAll() {
         return jdbcTemplate.query("SELECT * FROM Viewed_Real_Estate", new ViewedRealEstateRowMapper());
 
     }
 
+    /**
+     * Finds single record by id
+     *
+     * @param id given id for the fetching of data.
+     * @return
+     */
     public ViewedRealEstate findById(int id) {
         return jdbcTemplate.queryForObject("SELECT * FROM Viewed_Real_Estate WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<ViewedRealEstate>(ViewedRealEstate.class));
     }
+
+    /**
+     * Deletes Record for the database
+     *
+     * @param id for deletion
+     * @return
+     */
 
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM Viewed_Real_Estate WHERE id=?", id);
     }
 
     public int insert(ViewedRealEstate viewedRealEstate) {
-        return jdbcTemplate.update("INSERT INTO Viewed_Real_Estate (ID, property_id, buyer_id, date_of_view) " + "VALUES(?, (SELECT id FROM Property WHERE id=?),(SELECT id FROM Buyer WHERE id=?), ?)",
-                viewedRealEstate.getId(), viewedRealEstate.getPropertyForView().getId(), viewedRealEstate.getBuyers().getId(), new Date(viewedRealEstate.getRealEstateViewingDate().getTime()));
+
+        return jdbcTemplate.update("INSERT INTO Viewed_Real_Estate (property_id, buyer_id, date_of_view) " + "VALUES((SELECT id FROM Property WHERE id=?),(SELECT id FROM Buyer WHERE id=?), ?)",
+                viewedRealEstate.getPropertyForView().getId(), viewedRealEstate.getBuyer().getId(), new Date(viewedRealEstate.getRealEstateViewingDate().getTime()));
     }
 
 
     public int update(ViewedRealEstate viewedRealEstate) {
         return jdbcTemplate.update("UPDATE House " + "SET property_id=(SELECT id FROM Property WHERE id=? ) , buyer_id=(SELECT id FROM Buyer WHERE id=? ) , date_of_view=? " + "WHERE id=?",
-                viewedRealEstate.getPropertyForView().getId(), viewedRealEstate.getBuyers().getId(), viewedRealEstate.getRealEstateViewingDate(), viewedRealEstate.getId());
+                viewedRealEstate.getPropertyForView().getId(), viewedRealEstate.getBuyer().getId(), viewedRealEstate.getRealEstateViewingDate(), viewedRealEstate.getId());
 
     }
 

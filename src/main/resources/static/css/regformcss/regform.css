@@ -1,0 +1,108 @@
+/*
+*	Registration form full body css.
+*	Created by: Alexander Vladimirov
+*	Github: https://github.com/AlexanderVladimirov9090
+*
+*
+* 	This style sheet is for full registration form document.
+*   Applied backgound color, font, color, round edges and some minor moving on the elements.
+*
+*/
+
+
+/*
+	Apply background color and font family.
+*/
+
+ .font-applicator{
+	background-color : #435470;
+	color : #f7c485;
+	font-weight : bold;
+	font-family : "Arial Black", Gadget, sans-serif;
+}
+
+/*
+	Little adjustment of margin and apply background transperancy to the lables.
+*/
+
+.transarentAndMoveLeft{
+	background: transparent;
+  margin-left:35px;
+}
+
+
+/*
+	Rounds the edges of the background and sets opacity.
+*/
+
+.roundEdges{
+	background-color:  rgba(000, 000, 000, 0.1);
+	border-radius: 25px;
+}
+
+/*
+	Apply background transperancy to icons.
+*/
+
+span.input-group-addon{
+	background: transparent;
+}
+
+
+/*
+	Change color of the warning message.
+*/
+
+.warningColor{
+	color: #ffa88c;
+}
+
+
+/*
+ All from here is apply to the submist button.
+*/
+
+.btn {
+  border: 0 none;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 14px 24px;
+  text-transform: uppercase;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+  background:  #009959;
+	color: #f7c485;
+	font-family: "Arial Black", Gadget, sans-serif;
+  outline: 0 none;
+}
+
+ /*
+	This style is about primary look of the button.
+ */
+
+ .btn-primary {
+	background: #32425d;
+  color: #f7c485;
+	font-family: "Arial Black", Gadget, sans-serif;
+	margin-left: 30px;
+}
+
+ /*
+	This style is when mouse hovers over the button.
+ */
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+  background: #2c87a5;
+	color: #f7c485;
+	font-family: "Arial Black", Gadget, sans-serif;
+}
+ /*
+	This is the style of button when clicked.
+ */
+.btn-primary:active, .btn-primary.active {
+  background: #009959;
+  box-shadow: 3;
+	color: #f7c485;
+	font-family: "Arial Black", Gadget, sans-serif;
+}

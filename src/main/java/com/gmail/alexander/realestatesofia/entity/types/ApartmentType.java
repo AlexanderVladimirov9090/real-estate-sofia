@@ -8,8 +8,7 @@ import java.util.Map;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
- *     This is the realEstateType of aparments, that could be selled from the agency.
- * TODO Find better word for GARSONIERA.
+ * This class is used to indicate The Apartment`s Type.
  */
 public class ApartmentType {
     public static final Map<String, String> type;

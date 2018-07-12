@@ -8,30 +8,39 @@ import javax.persistence.*;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
- * This is the class that represents an Agency in this real estate application.
+ * This classs correspondence to Database table of Agency.
  */
-//Tells to the framework: assumed that this entity and  map it to a table named Agency.
+
+//Entity is used to show the framework that this is going to be used for the creation of table Property.
 @Entity
 public class Agency {
-    //Using annotation to show the framework that this is the id of the object and how to be used.
     @Id
+    //There is some bug that forced it to used the name. Don`t know why.
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, nullable = false)
     private int id;
+    //This annotation is used to indicate that the field id will be the table Primary key.
+    //Columns of the Table.
     private String name;
     private String address;
-    private String contactByPhone;
+    private String phone;
 
+    /**
+     * Default constructor
+     */
     public Agency() {
     }
 
-    public Agency(int id, String name, String address, String contactByPhone) {
+    public Agency(int id, String name, String address, String phone) {
         this.id = id;
         this.name = name;
         this.address = address;
-        this.contactByPhone = contactByPhone;
+        this.phone = phone;
     }
-
+/*
+* Getters and Setters of Agence.
+* */
     public int getId() {
         return id;
     }
@@ -56,12 +65,12 @@ public class Agency {
         this.address = address;
     }
 
-    public String getContactByPhone() {
-        return contactByPhone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setContactByPhone(String contactByPhone) {
-        this.contactByPhone = contactByPhone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
 }

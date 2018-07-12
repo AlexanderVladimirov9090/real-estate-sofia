@@ -8,7 +8,7 @@ import java.util.Map;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
- *     This is the realEstateType of land, that could be selled from the agency.
+ *     This is the class that indicates the Land type.
  */
 public class LandType {
     public static final Map<String, String> landType;

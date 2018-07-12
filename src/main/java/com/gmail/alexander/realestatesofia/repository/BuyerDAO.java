@@ -1,7 +1,6 @@
 package com.gmail.alexander.realestatesofia.repository;
 
 import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
-import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
 import com.gmail.alexander.realestatesofia.entity.costumers.Buyer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -24,11 +23,21 @@ public class BuyerDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-  @Autowired
-  private EmployeeDAO employeeDAO;
+    @Autowired
+    private EmployeeDAO employeeDAO;
 
+    /**
+     * This class is used to Map Data to The objects fields.
+     */
     class BuyerRowMapper implements RowMapper<Buyer> {
-
+        /**
+         * Maps data to Object
+         *
+         * @param rs     is used to store all data from database and then extracted to the object`s fields.
+         * @param rowNum Store what number of a row are we in.
+         * @return Object from given class.
+         * @throws SQLException
+         */
         @Override
 
         public Buyer mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -42,16 +51,33 @@ public class BuyerDAO {
         }
     }
 
-
+    /**
+     * Finds all Records of Buyer
+     *
+     * @return
+     */
 
     public List<Buyer> findAll() {
         return jdbcTemplate.query("SELECT Buyer.id, budget, name, phone, employee_id FROM Buyer INNER JOIN Customer ON Buyer.ID=Customer.ID ", new BuyerRowMapper());
 
     }
 
+    /**
+     * Finds single record by id
+     *
+     * @param id given id for the fetching of data.
+     * @return
+     */
     public Buyer findById(int id) {
-return jdbcTemplate.queryForObject("SELECT Buyer.id, name, phone, budget, employee_id FROM Buyer INNER JOIN Customer ON Buyer.ID=Customer.ID WHERE Customer.ID=?", new Object[]{id}, new BeanPropertyRowMapper<Buyer>(Buyer.class));
-       }
+        return jdbcTemplate.queryForObject("SELECT Buyer.id, name, phone, budget, employee_id FROM Buyer INNER JOIN Customer ON Buyer.ID=Customer.ID WHERE Customer.ID=?", new Object[]{id}, new BeanPropertyRowMapper<Buyer>(Buyer.class));
+    }
+
+    /**
+     * Deletes Record for the database
+     *
+     * @param id for deletion
+     * @return
+     */
 
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM Buyer WHERE id=?", id);
@@ -59,8 +85,8 @@ return jdbcTemplate.queryForObject("SELECT Buyer.id, name, phone, budget, employ
 
     public int insert(Buyer buyer) {
 
-        return jdbcTemplate.update("INSERT INTO Buyer (id, BUDGET, EMPLOYEE_ID) " + "VALUES((SELECT id FROM CUSTOMER WHERE id=? ), ? , (SELECT id FROM EMPLOYEE WHERE id=? ))",
-                buyer.getId(), buyer.getBudget(),employeeDAO.randomEmployee());
+        return jdbcTemplate.update("INSERT INTO Buyer (id, BUDGET, EMPLOYEE_ID) " + "VALUES((SELECT id FROM CUSTOMER WHERE phone=?), ? , (SELECT id FROM EMPLOYEE WHERE id=? ))",
+               buyer.getPhone(), buyer.getBudget(), employeeDAO.randomEmployee());
     }
 
     public int update(Buyer buyer) {

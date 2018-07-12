@@ -13,9 +13,12 @@ import java.util.Map;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
+ *     This classs correspondence to Database table of Employee.
  */
+//Same as the above classes.
 @Entity
 public class Employee {
+     //Columns of the table Employee.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -25,13 +28,21 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "agency_id")
     private Agency agency = new Agency();
+    //This annotation is used to tell the framework this is not Column of the table.
     @Transient
+    //This is the sellers that the employee handles.
     private List<Seller> sellers;
     @Transient
+    //This are the buyers that the employee handles.
     private List<Buyer> buyers;
     @Transient
+    //This is the Collection of the Property that are visited by the buyers.
     private Map<Property, List<Buyer>> visitedByBuyers;
 
+
+    public Employee() {
+
+    }
 
     public Employee(int id, String name, String phone, Agency agency, List<Seller> sellers, List<Buyer> buyers, Map<Property, List<Buyer>> visitedByBuyers) {
         this.id = id;
@@ -42,11 +53,6 @@ public class Employee {
         this.visitedByBuyers = visitedByBuyers;
         this.agency = agency;
     }
-
-    public Employee() {
-
-    }
-
     public Agency getAgency() {
         return agency;
     }

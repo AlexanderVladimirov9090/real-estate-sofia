@@ -10,13 +10,22 @@ import javax.persistence.*;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
- * This is the Property class that is going to be a representative from the database.
+ * This classs correspondence to Database table of Property.
+ * The fields are extracted from Apartment, House and Land so the tables would not be full of null values.
+ * I`m using framework for the creation of the tables and relations one another.
  */
+
+//Entity is used to show the framework that this is going to be used for the creation of table Property.
 @Entity
+
+// This is to indicate that there will be classes that are going to be in relations with this class. This would be created in the database as PK and FK.
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Property {
+
+    //This annotation is used to indicate that the field id will be the table Primary key.
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    //These will be the Columns of the table.
     private int id;
     private Integer sizeOfRealEstate;
     private String description;
@@ -24,12 +33,25 @@ public class Property {
     private Double price;
     private String realEstateType;
     private boolean isSold = false;
+
+    //This is to indicate the relation between Property table and Employee table.
     @ManyToOne
-    @JoinColumn(name= "employeeId")
+    //Join Column is the FK of the Employee Table.
+    @JoinColumn(name = "employeeId")
     private Employee employee = new Employee();
+
+    //This is to indicate the relation between Property table and Seller table.
     @ManyToOne
-    @JoinColumn(name= "sellerId")
+    //Join Column is the FK of the Employee Table.
+    @JoinColumn(name = "sellerId")
     private Seller seller = new Seller();
+
+    /**
+     * Default constructor
+     */
+    public Property() {
+
+    }
 
     public Property(int id, Integer sizeOfRealEstate, String description, String address, Double price, String realEstateType, Employee employee, Seller seller, boolean isSold) {
         this.id = id;
@@ -40,13 +62,11 @@ public class Property {
         this.realEstateType = realEstateType;
         this.employee = employee;
         this.seller = seller;
-        this.isSold= isSold;
+        this.isSold = isSold;
     }
-
-    public Property() {
-
-    }
-
+/*
+* These are the Getters and Setters of the Property Class.
+* */
     public int getId() {
         return id;
     }
@@ -95,7 +115,8 @@ public class Property {
         this.realEstateType = realEstateType;
     }
 
-    public Employee getEmployee() { ;
+    public Employee getEmployee() {
+        ;
         return employee;
     }
 

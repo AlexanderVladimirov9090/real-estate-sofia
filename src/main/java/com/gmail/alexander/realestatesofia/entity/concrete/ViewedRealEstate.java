@@ -20,10 +20,10 @@ public class ViewedRealEstate {
     private int id;
     @ManyToOne
     @JoinColumn(name="property_id")
-    private Property propertyForView;
+    private Property propertyForView =  new Property();
     @ManyToOne
     @JoinColumn(name="buyer_id")
-    private Buyer buyers;
+    private Buyer buyers= new Buyer();
     @Column(name="date_of_view")
     @Basic
     @Temporal(TemporalType.TIMESTAMP)
@@ -56,7 +56,7 @@ public class ViewedRealEstate {
         this.propertyForView = propertyForView;
     }
 
-    public Buyer getBuyers() {
+    public Buyer getBuyer() {
         return buyers;
     }
 

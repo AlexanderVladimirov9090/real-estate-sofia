@@ -8,6 +8,8 @@ import java.util.Map;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
+ *     This class is used to Indicate the Type of the Property.
+ *
  */
 public class RealEstateType {
     public static final Map<String, String> realEstateType;

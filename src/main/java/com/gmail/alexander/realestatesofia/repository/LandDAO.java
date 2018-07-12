@@ -21,14 +21,22 @@ import java.util.List;
 @Repository
 public class LandDAO {
 
-    //TODO Register Apartment  copy modify Apartment`s logic for this one.
-
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    /**
+     * This class is used to Map Data to The objects fields.
+     */
     class LandRowMapper implements RowMapper<Land> {
-
+        /**
+         * Maps data to Object
+         *
+         * @param rs     is used to store all data from database and then extracted to the object`s fields.
+         * @param rowNum Store what number of a row are we in.
+         * @return Object from given class.
+         * @throws SQLException
+         */
         @Override
         public Land mapRow(ResultSet rs, int rowNum) throws SQLException {
             Land land = new Land();
@@ -47,14 +55,33 @@ public class LandDAO {
         }
     }
 
+    /**
+     * Finds all Records of Agency
+     *
+     * @return
+     */
+
     public List<Land> findAll() {
         return jdbcTemplate.query("SELECT Land.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, land_type, is_sold, is_regulated, seller_id, employee_id FROM Land INNER JOIN Property ON Land.ID=Property.ID ORDER BY PRICE DESC", new LandRowMapper());
 
     }
 
+    /**
+     * Finds single record by id
+     *
+     * @param id given id for the fetching of data.
+     * @return
+     */
     public Land findById(int id) {
         return jdbcTemplate.queryForObject("SELECT Land.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, land_type, is_sold, is_regulated, seller_id, employee_id FROM Land INNER JOIN Property ON Land.ID=Property.ID WHERE Property.ID=?", new Object[]{id}, new BeanPropertyRowMapper<Land>(Land.class));
     }
+
+    /**
+     * Deletes Record for the database
+     *
+     * @param id for deletion
+     * @return
+     */
 
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM Apartment WHERE id=?", id);

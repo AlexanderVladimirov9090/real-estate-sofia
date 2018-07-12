@@ -22,9 +22,18 @@ public class CustomerDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-
+    /**
+     * This class is used to Map Data to The objects fields.
+     */
     class CustomerRowMapper implements RowMapper<Customer> {
-
+        /**
+         * Maps data to Object
+         *
+         * @param rs     is used to store all data from database and then extracted to the object`s fields.
+         * @param rowNum Store what number of a row are we in.
+         * @return Object from given class.
+         * @throws SQLException
+         */
         @Override
         public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
             Customer customer = new Customer();
@@ -35,21 +44,40 @@ public class CustomerDAO {
         }
     }
 
+    /**
+     * Finds all Records of Customer
+     *
+     * @return
+     */
+
     public List<Customer> findAll() {
         return jdbcTemplate.query("SELECT * FROM Customer", new CustomerRowMapper());
     }
 
+    /**
+     * Finds single record by id
+     *
+     * @param id given id for the fetching of data.
+     * @return
+     */
     public Customer findById(int id) {
         return jdbcTemplate.queryForObject("SELECT * FROM Customer WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<Customer>(Customer.class));
     }
+
+    /**
+     * Deletes Record for the database
+     *
+     * @param id for deletion
+     * @return
+     */
 
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM Customer WHERE id=?", id);
     }
 
     public int insert(Customer customer) {
-        return jdbcTemplate.update("INSERT INTO Customer (ID, NAME, PHONE) " + "VALUES(?, ?, ?)",
-                customer.getId(), customer.getName(), customer.getPhone());
+        return jdbcTemplate.update("INSERT INTO Customer ( NAME, PHONE) " + "VALUES( ?, ?)",
+                 customer.getName(), customer.getPhone());
     }
 
     public int update(Customer customer) {
