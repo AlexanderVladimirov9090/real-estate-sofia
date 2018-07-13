@@ -12,12 +12,12 @@ import java.util.Map;
  *
  */
 public class RealEstateType {
-    public static final Map<String, String> realEstateType;
+    public static final Map<String, String> type;
 
     static {
-        realEstateType = new HashMap<String, String>();
-        realEstateType.put("APARTMENT", "Apartment");
-        realEstateType.put("HOUSE", "House");
-        realEstateType.put("LAND", "Land");
+        type = new HashMap<String, String>();
+        type.put("APARTMENT", "Apartment");
+        type.put("HOUSE", "House");
+        type.put("LAND", "Land");
     }
 }

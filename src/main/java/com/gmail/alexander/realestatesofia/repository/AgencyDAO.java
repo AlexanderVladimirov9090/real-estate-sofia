@@ -16,8 +16,8 @@ import java.util.List;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
- *     This is the Repository of the Agency
- *     Queries to the database for the Table Agency are made from here.
+ * This is the Repository of the Agency
+ * Queries to the database for the Table Agency are made from here.
  */
 //This annotation is to indicate the framework that this is repository and it will be used for database queries.
 @Repository
@@ -52,6 +52,7 @@ public class AgencyDAO {
 
     /**
      * Finds all Records of Agency
+     *
      * @return
      */
     public List<Agency> findAll() {
@@ -60,6 +61,7 @@ public class AgencyDAO {
 
     /**
      * Finds single record by id
+     *
      * @param id given id for the fetching of data.
      * @return
      */
@@ -77,16 +79,25 @@ public class AgencyDAO {
         return jdbcTemplate.update("DELETE FROM Agency WHERE id=?", id);
     }
 
+    /**
+     * This is used to insert record to the database.
+     *
+     * @param agency
+     * @return
+     */
     public int insert(Agency agency) {
         return jdbcTemplate.update("INSERT INTO Agency ( name, address, Phone) " + "VALUES(  ?, ?, ?)",
                 agency.getName(), agency.getAddress(), agency.getPhone());
     }
 
+    /**
+     * Updates record from database by id.
+     *
+     * @param agency updated version of the record.
+     * @return confirmation code.
+     */
     public int update(Agency agency) {
         return jdbcTemplate.update("UPDATE Agency " + "SET name=?, address=?, Phone=?  " + "WHERE id=?",
                 agency.getName(), agency.getAddress(), agency.getPhone(), agency.getId());
-    }
-    public int countAgencies() {
-        return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM Employee", int.class);
     }
 }

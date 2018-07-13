@@ -84,24 +84,15 @@ public class ApartmentDAO {
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM Apartment WHERE id=?", id);
     }
-
+    /**
+     * This is used to insert record to the database.
+     * @param apartment
+     * @return
+     */
     public int insert(Apartment apartment) {
         return jdbcTemplate.update("INSERT INTO Apartment (ID, APARTMENT_TYPE, BUILD_MATERIAL) " + "VALUES((SELECT id FROM Property WHERE id=?), ?, ?)",
                 apartment.getId(), apartment.getApartmentType(), apartment.getBuildMaterial());
 
     }
-
-    public int update(Apartment apartment) {
-        return jdbcTemplate.update("UPDATE Apartment " + "SET ADDRESS=?, DESCRIPTION=?, PRICE=?, REAL_ESTATE_TYPE=?, SIZE_OF_REAL_ESTATE=?, APARTMENT_TYPE=?, BUILD_MATERIAL=?, EMPLOYEE_ID=(SELECT id FROM Employee WHERE id=? )  " + "WHERE id=?",
-                apartment.getAddress(),
-                apartment.getDescription(),
-                apartment.getPrice(),
-                apartment.getRealEstateType(),
-                apartment.getSizeOfRealEstate(),
-                apartment.getApartmentType(),
-                apartment.getBuildMaterial(),
-                apartment.getEmployee().getId(),
-                apartment.getId());
-
-    }
+//TODO update(Apartment apartment)
 }

@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Website CSS style -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Website Font style -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+    <!-- Form validation jscript -->
+    <script src="js/formvalidation.js"></script>
+
+    <!-- Form registration style -->
+    <link rel="stylesheet" type="text/css" href="css/regformcss/regform.css">
+
+    <!-- Title of the resource.-->
+    <title> Всички купувачи </title>
+</head>
+<body class="font-applicator">
+<h2 class="roundEdges col-xs-6 col-xs-offset-3">Списък с купувачи</h2>
+<table class=" font-applicator roundEdges col-xs-6 col-xs-offset-3">
+    <tr>
+        <th>Адрес</th>
+        <th>Описание</th>
+        <th>Тип</th>
+        <th>Размери</th>
+        <th>Цена</th>
+    </tr>
+
+    <th:block th:each="property : ${properties}">
+        <tr>
+            <td th:text="${property.address}">...</td>
+            <td th:text="${property.description}">...</td>
+            <td th:text="${property.realEstateType}">...</td>
+            <td th:text="${property.sizeOfRealEstate}">...</td>
+            <td th:text="${property.price}">...</td>
+            <td th:if="${property.sold}">Продадено</td>
+            <td th:if="!${property.sold}">Непродадено</td>
+
+          </tr>
+    </th:block>
+</table>
+<br/>
+<a href="/" style="font-size: 50px; color: white;"
+   class="font-applicator roundEdges col-xs-6 col-xs-offset-3 text-center">Назад</a>
+</body>
+</html>

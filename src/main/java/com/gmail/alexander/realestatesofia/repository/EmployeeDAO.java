@@ -83,6 +83,12 @@ public class EmployeeDAO {
         return jdbcTemplate.update("DELETE FROM Employee WHERE id=?", id);
     }
 
+    /**
+     * This is used to insert record to the database.
+     * @param employee
+     * @return
+     */
+
     public int insert(Employee employee) {
             employee.setId(countEmployees()+1);
         return jdbcTemplate.update("INSERT INTO Employee ( NAME, PHONE, agency_id) " + "VALUES(?, ?, (SELECT id FROM AGENCY WHERE id=? ) )",
@@ -90,18 +96,33 @@ public class EmployeeDAO {
 
     }
 
+    /**
+     * Updates record from database by id.
+     * @param employee updated version of the record.
+     * @return confirmation code.
+     */
     public int update(Employee employee) {
         return jdbcTemplate.update("UPDATE Employee" + "SET NAME=?, PHONE=?  " + "WHERE ID=?"
                 , employee.getName(), employee.getPhone(), employee.getId());
 
     }
 
+    /**
+     * Gives random id of an employee
+     * @return random id.
+     */
     public int randomEmployee() {
+        //counts employees
         int countedOfEmployees = countEmployees();
         Random r = new Random();
+         //returns random id.
         return r.nextInt((countedOfEmployees - 1) + 1) + 1;
     }
 
+    /**
+     * Counts the employees in the database.
+     * @return how many employees are.
+     */
     private int countEmployees() {
         return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM Employee", int.class);
     }

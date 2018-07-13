@@ -17,9 +17,12 @@ import java.util.List;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
+ * This is the Repository of viewed by the buyer properties.
  */
+//Tell the framework that this is repository.
 @Repository
 public class ViewedRealEstateDAO {
+    //This class uses JDBC for writing native queries.
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -49,7 +52,7 @@ public class ViewedRealEstateDAO {
     /**
      * Finds all Records of ViewedRealEstate
      *
-     * @return
+     * @return collection of viewed by buyer properties.
      */
 
     public List<ViewedRealEstate> findAll() {
@@ -61,7 +64,7 @@ public class ViewedRealEstateDAO {
      * Finds single record by id
      *
      * @param id given id for the fetching of data.
-     * @return
+     * @return object from given class
      */
     public ViewedRealEstate findById(int id) {
         return jdbcTemplate.queryForObject("SELECT * FROM Viewed_Real_Estate WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<ViewedRealEstate>(ViewedRealEstate.class));
@@ -71,20 +74,30 @@ public class ViewedRealEstateDAO {
      * Deletes Record for the database
      *
      * @param id for deletion
-     * @return
+     * @return confirmation code.
      */
 
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM Viewed_Real_Estate WHERE id=?", id);
     }
 
+    /**
+     * This is used to insert record to the database.
+     *
+     * @param viewedRealEstate view by the Buyer real estate.
+     * @return confirmation code.
+     */
     public int insert(ViewedRealEstate viewedRealEstate) {
 
         return jdbcTemplate.update("INSERT INTO Viewed_Real_Estate (property_id, buyer_id, date_of_view) " + "VALUES((SELECT id FROM Property WHERE id=?),(SELECT id FROM Buyer WHERE id=?), ?)",
                 viewedRealEstate.getPropertyForView().getId(), viewedRealEstate.getBuyer().getId(), new Date(viewedRealEstate.getRealEstateViewingDate().getTime()));
     }
 
-
+    /**
+     * Updates record from database by id.
+     * @param viewedRealEstate updated version of the record.
+     * @return confirmation code.
+     */
     public int update(ViewedRealEstate viewedRealEstate) {
         return jdbcTemplate.update("UPDATE House " + "SET property_id=(SELECT id FROM Property WHERE id=? ) , buyer_id=(SELECT id FROM Buyer WHERE id=? ) , date_of_view=? " + "WHERE id=?",
                 viewedRealEstate.getPropertyForView().getId(), viewedRealEstate.getBuyer().getId(), viewedRealEstate.getRealEstateViewingDate(), viewedRealEstate.getId());

@@ -75,11 +75,25 @@ public class CustomerDAO {
         return jdbcTemplate.update("DELETE FROM Customer WHERE id=?", id);
     }
 
+    /**
+     * This is used to insert record to the database.
+     *
+     * @param customer
+     * @return
+     */
+
     public int insert(Customer customer) {
         return jdbcTemplate.update("INSERT INTO Customer ( NAME, PHONE) " + "VALUES( ?, ?)",
-                 customer.getName(), customer.getPhone());
+                customer.getName(), customer.getPhone());
     }
 
+
+    /**
+     * Updates record from database by id.
+     *
+     * @param customer updated version of the record.
+     * @return confirmation code.
+     */
     public int update(Customer customer) {
         return jdbcTemplate.update("UPDATE Customer" + "SET name=?, phone=?  " + "WHERE id=?",
                 customer.getName(), customer.getPhone(), customer.getId());

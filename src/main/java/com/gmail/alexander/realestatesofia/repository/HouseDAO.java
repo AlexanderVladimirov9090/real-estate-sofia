@@ -93,6 +93,12 @@ public class HouseDAO {
         return jdbcTemplate.update("DELETE FROM House WHERE id=?", id);
     }
 
+    /**
+     * This is used to insert record to the database.
+     * @param house
+     * @return
+     */
+
     public int insert(House house) {
         return jdbcTemplate.update("INSERT INTO HOUSE (ID, BUILD_MATERIAL, HOUSE_TYPE, PARKING_SPACE, YARD_SIZE) " + "VALUES((SELECT id FROM Property WHERE id=?), ?, ?, ?, ?)",
                 house.getId(), house.getBuildMaterial(), house.getHouseType(), house.getParkingSpace(), house.getYardSize());
@@ -100,6 +106,11 @@ public class HouseDAO {
     }
 
 
+    /**
+     * Updates record from database by id.
+     * @param house updated version of the record.
+     * @return confirmation code.
+     */
     public int update(House house) {
         return jdbcTemplate.update("UPDATE House " + "SET ADDRESS=?, DESCRIPTION=?, PRICE=?, REAL_ESTATE_TYPE=?, SIZE_OF_REAL_ESTATE=?, APARTMENT_TYPE=?, BUILD_MATERIAL=?, EMPLOYEE_ID=(SELECT id FROM Employee WHERE id=? )  " + "WHERE id=?",
                 house.getAddress(),

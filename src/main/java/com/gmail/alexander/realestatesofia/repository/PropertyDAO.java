@@ -43,6 +43,7 @@ public class PropertyDAO {
             property.setSizeOfRealEstate(rs.getInt("SIZE_OF_REAL_ESTATE"));
             property.getSeller().setId(rs.getInt("seller_id"));
             property.getEmployee().setId(rs.getInt("employee_id"));
+            property.setSold(rs.getBoolean("sold"));
             return property;
         }
     }
@@ -78,11 +79,24 @@ public class PropertyDAO {
         return jdbcTemplate.update("DELETE FROM Property WHERE id=?", id);
     }
 
+    /**
+     * This is used to insert record to the database.
+     *
+     * @param property
+     * @return
+     */
+
     public int insert(Property property) {
-        return jdbcTemplate.update("INSERT INTO Property (address, description, IS_SOLD ,price, REAL_ESTATE_TYPE, SIZE_OF_REAL_ESTATE, employee_id, seller_id) " + "VALUES(?, ?, ?, ?, ?, ?, (SELECT EMPLOYEE_ID FROM Seller WHERE id=?), (SELECT ID FROM Seller WHERE id=?) )",
-                 property.getAddress(), property.getDescription(), property.isSold(), property.getPrice(), property.getRealEstateType(), property.getSizeOfRealEstate(), property.getSeller().getId(), property.getSeller().getId());
+        return jdbcTemplate.update("INSERT INTO Property (address, description, sold ,price, REAL_ESTATE_TYPE, SIZE_OF_REAL_ESTATE, employee_id, seller_id) " + "VALUES(?, ?, ?, ?, ?, ?, (SELECT EMPLOYEE_ID FROM Seller WHERE id=?), (SELECT ID FROM Seller WHERE id=?) )",
+                property.getAddress(), property.getDescription(), property.getSold(), property.getPrice(), property.getRealEstateType(), property.getSizeOfRealEstate(), property.getSeller().getId(), property.getSeller().getId());
     }
 
+    /**
+     * Updates record from database by id.
+     *
+     * @param property updated version of the record.
+     * @return confirmation code.
+     */
     public int update(Property property) {
         return jdbcTemplate.update("UPDATE Apartment " + "SET ADDRESS=?, DESCRIPTION=?, PRICE=?, REAL_ESTATE_TYPE=?, SIZE_OF_REAL_ESTATE=?, APARTMENT_TYPE=?, BUILD_MATERIAL=?, EMPLOYEE_ID=(SELECT id FROM Employee WHERE id=? ), seller_id=(SELECT id FROM Seller WHERE id=?)  " + "WHERE id=?",
                 property.getAddress(),

@@ -4,21 +4,14 @@ import com.gmail.alexander.realestatesofia.entity.abstracts.Customer;
 import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
 import com.gmail.alexander.realestatesofia.entity.concrete.Agency;
 import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
-import com.gmail.alexander.realestatesofia.entity.concrete.ViewedRealEstate;
 import com.gmail.alexander.realestatesofia.entity.costumers.Buyer;
 import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
-import com.gmail.alexander.realestatesofia.entity.realesates.Apartment;
-import com.gmail.alexander.realestatesofia.entity.realesates.House;
-import com.gmail.alexander.realestatesofia.entity.realesates.Land;
 import com.gmail.alexander.realestatesofia.entity.types.*;
 import com.gmail.alexander.realestatesofia.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.sql.Timestamp;
-import java.util.List;
 
 @SpringBootApplication
 public class RealEstateSofiaApplication implements CommandLineRunner {
@@ -93,37 +86,44 @@ public class RealEstateSofiaApplication implements CommandLineRunner {
         buyerDAO.insert(buyer);
         Buyer expectedBuyer = buyerDAO.findById(1);
         System.out.println("Buyer: " + expectedBuyer.getId() + expectedBuyer.getName() + expectedBuyer.getPhone() + expectedBuyer.getBudget());
-       /* Property property = new Property();
+        Property property = new Property();
         property.setAddress("Some Address");
         property.setDescription("Some KInd of description.");
-        property.setRealEstateType(RealEstateType.realEstateType.get("APARTMENT"));
+        property.setRealEstateType(RealEstateType.type.get("APARTMENT"));
         property.setPrice(19999.00);
         property.setSizeOfRealEstate(200);
         property.setSeller(expectedSeller);
         propertyDAO.insert(property);
-        Property expectedProperty = propertyDAO.findById(0);
-       System.out.println("Property: " + expectedProperty.getId() + expectedProperty.getRealEstateType() + expectedProperty.getDescription() + expectedProperty.getPrice() + expectedProperty.getAddress() + expectedProperty.getSizeOfRealEstate() + expectedProperty.isSold());
-        Apartment apartment = new Apartment();
+        propertyDAO.insert(property);
+        propertyDAO.insert(property);
+        propertyDAO.insert(property);
+        propertyDAO.insert(property);
+        property.setAddress("Продаден апартамент!");
+        property.setSold(true);
+        propertyDAO.insert(property);
+        Property expectedProperty = propertyDAO.findById(1);
+       System.out.println("Property: " + expectedProperty.getId() + expectedProperty.getRealEstateType() + expectedProperty.getDescription() + expectedProperty.getPrice() + expectedProperty.getAddress() + expectedProperty.getSizeOfRealEstate() + expectedProperty.getSold());
+      /* Apartment apartment = new Apartment();
         apartment.setBuildMaterial(BuildMaterial.type.get("BRICK"));
         apartment.setApartmentType(ApartmentType.type.get("STUDIO"));
         apartmentDAO.insert(apartment);
         Apartment expectedApartment = apartmentDAO.findById(0);
-        System.out.println("Apartment: " + expectedApartment.getId() + expectedApartment.getRealEstateType() + expectedApartment.getDescription() + expectedApartment.getPrice() + expectedApartment.getAddress() + expectedApartment.getSizeOfRealEstate() + expectedApartment.getBuildMaterial() + expectedApartment.getApartmentType() + expectedApartment.isSold());
+        System.out.println("Apartment: " + expectedApartment.getId() + expectedApartment.getRealEstateType() + expectedApartment.getDescription() + expectedApartment.getPrice() + expectedApartment.getAddress() + expectedApartment.getSizeOfRealEstate() + expectedApartment.getBuildMaterial() + expectedApartment.getApartmentType() + expectedApartment.getSold());
         House house = new House();
         house.setParkingSpace(2);
-        house.setHouseType(HouseType.houseType.get("HOUSE"));
+        house.setHouseType(HouseType.type.get("HOUSE"));
         house.setBuildMaterial(BuildMaterial.type.get("BRICK"));
         house.setYardSize(200);
         houseDAO.insert(house);
         House expectedHouse = houseDAO.findById(0);
-        System.out.println("House: " + expectedHouse.getId() + expectedHouse.getRealEstateType() + expectedHouse.getDescription() + expectedHouse.getPrice() + expectedHouse.getAddress() + expectedHouse.getSizeOfRealEstate() + expectedHouse.getBuildMaterial() + expectedHouse.getHouseType() + expectedHouse.isSold() + expectedHouse.getYardSize() + expectedHouse.getBuildMaterial() + expectedHouse.getParkingSpace());
+        System.out.println("House: " + expectedHouse.getId() + expectedHouse.getRealEstateType() + expectedHouse.getDescription() + expectedHouse.getPrice() + expectedHouse.getAddress() + expectedHouse.getSizeOfRealEstate() + expectedHouse.getBuildMaterial() + expectedHouse.getHouseType() + expectedHouse.getSold() + expectedHouse.getYardSize() + expectedHouse.getBuildMaterial() + expectedHouse.getParkingSpace());
 
         Land land = new Land();
         land.setRegulated(true);
-        land.setLandType(LandType.landType.get("LAWN"));
+        land.setLandType(LandType.type.get("LAWN"));
         landDAO.insert(land);
         Land expectedLand = landDAO.findById(0);
-        System.out.println("Land:" + expectedLand.getId() + expectedLand.getRealEstateType() + expectedLand.getDescription() + expectedLand.getPrice() + expectedLand.getAddress() + expectedLand.getSizeOfRealEstate() + expectedLand.getLandType() + expectedLand.isSold());
+        System.out.println("Land:" + expectedLand.getId() + expectedLand.getRealEstateType() + expectedLand.getDescription() + expectedLand.getPrice() + expectedLand.getAddress() + expectedLand.getSizeOfRealEstate() + expectedLand.getLandType() + expectedLand.getSold());
 
         ViewedRealEstate viewedRealEstate = new ViewedRealEstate();
         viewedRealEstate.setId(1);

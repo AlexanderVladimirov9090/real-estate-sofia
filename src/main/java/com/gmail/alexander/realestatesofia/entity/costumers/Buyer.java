@@ -12,15 +12,29 @@ import java.util.List;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
+ *     This class is used for Buyers information that will be stored to the database.
+ *     Framework will make relation to Customer table.
  */
+//This will tell the framework, that this will be used as a table in the database..
 @Entity
 public class Buyer extends Customer {
+    //NOTE This extends Customer class and will not need to have id. It will use Customer`s ID.
+
     private Double budget;
+    //This is where the relation of employee is defined.
     @ManyToOne
     @JoinColumn(name="employee_id")
     private Employee employee = new Employee();
+    //This tells to the framework, that this is not a column.
     @Transient
     private List<ViewedRealEstate> viewedProperties;
+
+    /**
+     * Default constructor.
+     */
+    public Buyer() {
+
+    }
 
     public Buyer(int id, String name, String phone, Double budget, Employee employee, Employee employee1, List<ViewedRealEstate> viewedProperties) {
         super(id, name, phone);
@@ -28,11 +42,7 @@ public class Buyer extends Customer {
         this.employee = employee;
         this.viewedProperties = viewedProperties;
     }
-
-    public Buyer() {
-
-    }
-
+// This are the setters and getters of the Seller.
     public Double getBudget() {
         return budget;
     }

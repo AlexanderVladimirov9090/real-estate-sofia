@@ -11,11 +11,11 @@ import java.util.Map;
  *  This class is used to indicate the Type of house.
  */
 public class HouseType {
-    public static final Map<String, String> houseType;
+    public static final Map<String, String> type;
     static
     {
-        houseType = new HashMap<String, String>();
-        houseType.put("FLOOR_OF_HOUSE", "Floor Of House");
-        houseType.put("HOUSE", "House");}
+        type = new HashMap<String, String>();
+        type.put("FLOOR_OF_HOUSE", "Floor Of House");
+        type.put("HOUSE", "House");}
 
 }

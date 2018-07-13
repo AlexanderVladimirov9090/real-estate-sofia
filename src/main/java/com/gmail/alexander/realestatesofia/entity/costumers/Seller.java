@@ -12,12 +12,20 @@ import javax.persistence.ManyToOne;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
+ * This class is used for Seller information that will be stored to the database.
+ * Framework will make relation to Customer table.
  */
+// Framework Make Table
 @Entity
 public class Seller extends Customer {
+    //Relations to employee table.
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
+
+    /**
+     * Default constructor.
+     */
     public Seller() {
         super();
     }
@@ -27,7 +35,7 @@ public class Seller extends Customer {
 
         this.employee = employee;
     }
-
+//Setter and getters of Seller.
     public Employee getEmployee() {
         return employee;
     }

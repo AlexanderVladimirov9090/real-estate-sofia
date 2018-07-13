@@ -87,23 +87,16 @@ public class LandDAO {
         return jdbcTemplate.update("DELETE FROM Apartment WHERE id=?", id);
     }
 
+    /**
+     * This is used to insert record to the database.
+     * @param land
+     * @return
+     */
+
     public int insert(Land land) {
         return jdbcTemplate.update("INSERT INTO Land (ID, is_regulated, land_type) " + "VALUES((SELECT id FROM Property WHERE id=?), ?, ?)",
                 land.getId(), land.isRegulated(), land.getLandType());
 
     }
-
-    public int update(Apartment apartment) {
-        return jdbcTemplate.update("UPDATE Apartment " + "SET ADDRESS=?, DESCRIPTION=?, PRICE=?, REAL_ESTATE_TYPE=?, SIZE_OF_REAL_ESTATE=?, APARTMENT_TYPE=?, BUILD_MATERIAL=?, EMPLOYEE_ID=(SELECT id FROM Employee WHERE id=? )  " + "WHERE id=?",
-                apartment.getAddress(),
-                apartment.getDescription(),
-                apartment.getPrice(),
-                apartment.getRealEstateType(),
-                apartment.getSizeOfRealEstate(),
-                apartment.getApartmentType(),
-                apartment.getBuildMaterial(),
-                apartment.getEmployee().getId(),
-                apartment.getId());
-
-    }
+    //TODO update(Land land)
 }

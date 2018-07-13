@@ -11,13 +11,24 @@ import javax.persistence.Entity;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
+ * This class is used for House information that will be stored to the database.
+ * Framework will make relation to Property table when extended by this class.
  */
+//Make Table.
 @Entity
 public class House extends Property {
+    //Columns of te table. Property ID will be used to generate id.
     private String buildMaterial;
     private String houseType;
     private int parkingSpace;
     private int yardSize;
+
+    /**
+     * Default constructor.
+     */
+    public House() {
+        super();
+    }
 
     public House(int id, Integer sizeOfRealEstate, String description, String address, Double price, String type, Employee employee, Seller seller, String buildMaterial, String houseType, int parkingSpace, int yardSize, boolean isSold) {
         super(id, sizeOfRealEstate, description, address, price, type, employee, seller, isSold);
@@ -25,12 +36,9 @@ public class House extends Property {
         this.houseType = houseType;
         this.parkingSpace = parkingSpace;
         this.yardSize = yardSize;
-        }
-
-    public House() {
-
     }
 
+    //Setters and Getters of House class.
     public String getBuildMaterial() {
         return buildMaterial;
     }

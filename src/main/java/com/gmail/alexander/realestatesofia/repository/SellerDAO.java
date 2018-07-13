@@ -78,8 +78,15 @@ public class SellerDAO {
         return jdbcTemplate.update("DELETE FROM Seller WHERE id=?", id);
     }
 
+    /**
+     * This is used to insert record to the database.
+     *
+     * @param seller
+     * @return
+     */
     public int insert(Seller seller) {
         return jdbcTemplate.update("INSERT INTO Seller (ID, EMPLOYEE_ID) " + "VALUES((SELECT id FROM CUSTOMER WHERE phone=?), (SELECT id FROM EMPLOYEE WHERE id=? ))",
                 seller.getPhone(), employeeDAO.randomEmployee());
     }
+    //TODO update()!
 }

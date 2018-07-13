@@ -24,7 +24,7 @@ public class Property {
 
     //This annotation is used to indicate that the field id will be the table Primary key.
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     //These will be the Columns of the table.
     private int id;
     private Integer sizeOfRealEstate;
@@ -32,7 +32,7 @@ public class Property {
     private String address;
     private Double price;
     private String realEstateType;
-    private boolean isSold = false;
+    private Boolean sold = false;
 
     //This is to indicate the relation between Property table and Employee table.
     @ManyToOne
@@ -53,7 +53,7 @@ public class Property {
 
     }
 
-    public Property(int id, Integer sizeOfRealEstate, String description, String address, Double price, String realEstateType, Employee employee, Seller seller, boolean isSold) {
+    public Property(int id, Integer sizeOfRealEstate, String description, String address, Double price, String realEstateType, Employee employee, Seller seller, boolean sold) {
         this.id = id;
         this.sizeOfRealEstate = sizeOfRealEstate;
         this.description = description;
@@ -62,7 +62,7 @@ public class Property {
         this.realEstateType = realEstateType;
         this.employee = employee;
         this.seller = seller;
-        this.isSold = isSold;
+        this.sold = sold;
     }
 /*
 * These are the Getters and Setters of the Property Class.
@@ -132,11 +132,11 @@ public class Property {
         this.seller = seller;
     }
 
-    public boolean isSold() {
-        return isSold;
+    public boolean getSold() {
+        return sold;
     }
 
     public void setSold(boolean sold) {
-        isSold = sold;
+        this.sold = sold;
     }
 }

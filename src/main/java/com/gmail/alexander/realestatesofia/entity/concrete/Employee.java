@@ -13,12 +13,12 @@ import java.util.Map;
  *
  * @author Alexander Vladimirov
  * <alexandervladimirov1902@gmail.com>
- *     This classs correspondence to Database table of Employee.
+ * This classs correspondence to Database table of Employee.
  */
 //Same as the above classes.
 @Entity
 public class Employee {
-     //Columns of the table Employee.
+    //Columns of the table Employee.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -53,6 +53,7 @@ public class Employee {
         this.visitedByBuyers = visitedByBuyers;
         this.agency = agency;
     }
+
     public Agency getAgency() {
         return agency;
     }

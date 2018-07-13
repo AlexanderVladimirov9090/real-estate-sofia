@@ -82,6 +82,11 @@ public class BuyerDAO {
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM Buyer WHERE id=?", id);
     }
+    /**
+     * This is used to insert record to the database.
+     * @param buyer
+     * @return
+     */
 
     public int insert(Buyer buyer) {
 
@@ -89,12 +94,13 @@ public class BuyerDAO {
                buyer.getPhone(), buyer.getBudget(), employeeDAO.randomEmployee());
     }
 
+    /**
+     * Updates record from database by id.
+     * @param buyer updated version of the record.
+     * @return confirmation code.
+     */
     public int update(Buyer buyer) {
         return jdbcTemplate.update("UPDATE Buyer " + "SET BUDGET=?  " + "WHERE id=(SELECT id FROM CUSTOMER WHERE id=?    )",
                 buyer.getBudget(), buyer.getId());
-    }
-
-    public void buyProperty(Property property) {
-        //TODO extract Buyers money and mark it as sold.
     }
 }
