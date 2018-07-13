@@ -55,6 +55,9 @@ public class RealEstateSofiaApplication implements CommandLineRunner {
         agency.setAddress("Sofia, Sofia Street number 1");
         agency.setPhone("+35941234734345");
         agencyDAO.insert(agency);
+        agencyDAO.insert(agency);
+        agencyDAO.insert(agency);
+        agencyDAO.insert(agency);
         System.out.println("Agency:");
             Agency expectedAgecy = agencyDAO.findById(1);
              System.out.println("Agency: " + expectedAgecy.getId() + expectedAgecy.getName() + expectedAgecy.getAddress());
@@ -63,6 +66,10 @@ public class RealEstateSofiaApplication implements CommandLineRunner {
         employee1.setName("Ivan Ivanov aka. Vankata");
         employee1.setPhone("+359909090");
         employee1.setAgency(agency);
+        employeeDAO.insert(employee1);
+        employeeDAO.insert(employee1);
+        employeeDAO.insert(employee1);
+        employeeDAO.insert(employee1);
         employeeDAO.insert(employee1);
 
         Employee expectedEmproyee = employeeDAO.findById(1);

@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 /**
  * Created on 11.07.18.
@@ -41,6 +44,35 @@ public class GreetingControler {
     @GetMapping("/registerAgency")
     public String registerAgency(Model model) {
         return "registrationAgency";
+    }
+
+    @RequestMapping(value = "/showAgencies", method = RequestMethod.GET)
+    public String showAgencies(Model model) {
+        List<Agency> agencies = agencyDAO.findAll();
+
+        for (Agency each : agencies) {
+            System.out.println("Each Agency: " + each.getName());
+        }
+        model.addAttribute("agencies",agencies);
+        return "showAgencies";
+    }
+    @RequestMapping(value = "/showEmployees", method = RequestMethod.GET)
+    public String showEmployees(Model model) {
+        List<Employee> employees = employeeDAO.findAll();
+
+        for (Employee each : employees) {
+            System.out.println("Each Agency: " + each.getName());
+        }
+        model.addAttribute("employees",employees);
+        return "showEmployees";
+    }
+    @RequestMapping(value = "/showCustomers", method = RequestMethod.GET)
+    public String showCustomers(Model model) {
+        List<Customer> customers = customerDAO.findAll();
+
+
+        model.addAttribute("customers",customers);
+        return "showCustomers";
     }
 
     @RequestMapping(value = "/registerAgency", method = RequestMethod.POST)
@@ -111,6 +143,7 @@ public class GreetingControler {
         model.addAttribute("name", seller.getPhone());
         return "seller";
     }
+
     @GetMapping("/registerProperty")
     public String registerProperty(Model model) {
         return "registrationProperty";
