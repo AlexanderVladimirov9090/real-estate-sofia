@@ -38,12 +38,12 @@
             <td th:text="${employee.phone}">...</td>
             <td>
                 <form action="/showSellers" method="get">
-                    <button name="id"  type="submit" th:value="${employee.id}" style="color:black; background-color: white;">Списък с пордавачи</button>
+                    <button name="id" class="roundEdges" type="submit" th:value="${employee.id}" style="color:black; background-color: #9999FF;">Списък с пордавачи</button>
                 </form>
             </td>
             <td>
                 <form action="/showBuyers" method="get">
-                    <button name="id" type="submit" th:value="${employee.id}" style="color:black; background-color: white;">Списък с купувачи</button>
+                    <button name="id" class="roundEdges" type="submit" th:value="${employee.id}" style="color:black; background-color: #9999FF;">Списък с купувачи</button>
                 </form>
             </td>
 

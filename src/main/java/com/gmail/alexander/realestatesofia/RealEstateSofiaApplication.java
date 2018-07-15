@@ -49,7 +49,7 @@ public class RealEstateSofiaApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//TODO This is some test data
+//TODO This is some preloaded data to the database.
         Agency agency = new Agency();
         agency.setName("Sofia Real Estate Agency");
         agency.setAddress("Sofia, Sofia Street number 1");
@@ -62,20 +62,13 @@ public class RealEstateSofiaApplication implements CommandLineRunner {
         Agency expectedAgecy = agencyDAO.findById(1);
         System.out.println("Agency: " + expectedAgecy.getId() + expectedAgecy.getName() + expectedAgecy.getAddress());
 
-        Employee employee1 = new Employee();
-        employee1.setName("Иван Служителя");
-        employee1.setPhone("+359909090");
-        employee1.setAgency(agency);
-        employeeDAO.insert(employee1);
-        employeeDAO.insert(employee1);
-        employeeDAO.insert(employee1);
-        employeeDAO.insert(employee1);
-        employeeDAO.insert(employee1);
-
-        Employee expectedEmproyee = employeeDAO.findById(1);
-        System.out.println("Employee: " + expectedEmproyee.getId() + expectedEmproyee.getName() + expectedEmproyee.getPhone());
-
         for (int i = 1; i < 10; i++) {
+            Employee employee1 = new Employee();
+            employee1.setName("Иван Служителя"+i);
+            employee1.setPhone("+359909090"+i);
+            employee1.setAgency(agency);
+            employeeDAO.insert(employee1);
+
             Customer customer = new Customer();
             customer.setName("Иван Клиента Продавач" + i);
             customer.setPhone("34912312" + i);
@@ -96,18 +89,14 @@ public class RealEstateSofiaApplication implements CommandLineRunner {
             buyerDAO.insert(buyer);
 
             Property property = new Property();
-            property.setAddress("Some Address");
-            property.setDescription("Some KInd of description.");
+            property.setAddress("Some Address"+i);
+            property.setDescription("Some KInd of description."+i);
             property.setRealEstateType(RealEstateType.type.get("APARTMENT"));
             property.setPrice(19999.00);
             property.setSizeOfRealEstate(200);
             property.setSeller(seller);
             propertyDAO.insert(property);
-            propertyDAO.insert(property);
-            propertyDAO.insert(property);
-            propertyDAO.insert(property);
-            propertyDAO.insert(property);
-            property.setAddress("Продаден апартамент!");
+            property.setAddress("Продаден апартамент!"+i);
             property.setSold(true);
             propertyDAO.insert(property);
         }
