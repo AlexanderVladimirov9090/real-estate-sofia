@@ -48,7 +48,7 @@ public class LandDAO {
             land.setRealEstateType(rs.getString("real_estate_type"));
             land.setLandType(rs.getString("land_type"));
             land.setRegulated(rs.getBoolean("is_regulated"));
-            land.setSold(rs.getBoolean("is_sold"));
+            land.setSold(rs.getBoolean("sold"));
             land.getSeller().setId(rs.getInt("seller_id"));
             land.getEmployee().setId(rs.getInt("employee_id"));
             return land;
@@ -62,7 +62,7 @@ public class LandDAO {
      */
 
     public List<Land> findAll() {
-        return jdbcTemplate.query("SELECT Land.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, land_type, is_sold, is_regulated, seller_id, employee_id FROM Land INNER JOIN Property ON Land.ID=Property.ID ORDER BY PRICE DESC", new LandRowMapper());
+        return jdbcTemplate.query("SELECT Land.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, land_type, sold, is_regulated, seller_id, employee_id FROM Land INNER JOIN Property ON Land.ID=Property.ID ORDER BY PRICE DESC", new LandRowMapper());
 
     }
 

@@ -45,8 +45,8 @@ public class EmployeeDAO {
         public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
             Employee employee = new Employee();
             employee.setId(rs.getInt("id"));
-            employee.setName("name");
-            employee.setPhone("phone");
+            employee.setName(rs.getString("name"));
+            employee.setPhone(rs.getString("phone"));
             employee.getAgency().setId(rs.getInt("agency_id"));
             return employee;
         }

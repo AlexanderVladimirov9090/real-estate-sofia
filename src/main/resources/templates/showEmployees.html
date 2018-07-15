@@ -1,5 +1,5 @@
-
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +16,7 @@
     <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 
     <!-- Form validation jscript -->
-    <script src="js/formvalidation.js"> </script>
+    <script src="js/formvalidation.js"></script>
 
     <!-- Form registration style -->
     <link rel="stylesheet" type="text/css" href="css/regformcss/regform.css">
@@ -26,20 +26,32 @@
 </head>
 <body class="font-applicator">
 <h2 class="roundEdges col-xs-6 col-xs-offset-3">Списък със служители</h2>
-<table class=" font-applicator roundEdges col-xs-6 col-xs-offset-3" >
+<table class=" font-applicator roundEdges col-xs-6 col-xs-offset-3">
     <tr>
         <th>Име</th>
         <th>Телефон</th>
-        </tr>
+    </tr>
 
     <th:block th:each="employee : ${employees}">
         <tr>
             <td th:text="${employee.name}">...</td>
             <td th:text="${employee.phone}">...</td>
-         </tr>
+            <td>
+                <form action="/showSellers" method="get">
+                    <button name="id"  type="submit" th:value="${employee.id}" style="color:black; background-color: white;">Списък с пордавачи</button>
+                </form>
+            </td>
+            <td>
+                <form action="/showBuyers" method="get">
+                    <button name="id" type="submit" th:value="${employee.id}" style="color:black; background-color: white;">Списък с купувачи</button>
+                </form>
+            </td>
+
+        </tr>
     </th:block>
-    </table>
+</table>
 <br/>
-<a href="/" style="font-size: 50px; color: white;" class="font-applicator roundEdges col-xs-6 col-xs-offset-3 text-center">Назад</a>
+<a href="/" style="font-size: 50px; color: white;"
+   class="font-applicator roundEdges col-xs-6 col-xs-offset-3 text-center">Назад</a>
 </body>
 </html>

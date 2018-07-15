@@ -46,7 +46,7 @@ public class ApartmentDAO {
             apartment.setApartmentType(rs.getString("apartment_Type"));
             apartment.setRealEstateType(rs.getString("REAL_ESTATE_TYPE"));
             apartment.setBuildMaterial("build_Material");
-            apartment.setSold(rs.getBoolean("is_sold"));
+            apartment.setSold(rs.getBoolean("sold"));
             apartment.getSeller().setId(rs.getInt("seller_id"));
             apartment.getEmployee().setId(rs.getInt("employee_id"));
             return apartment;
@@ -60,7 +60,7 @@ public class ApartmentDAO {
      */
 
     public List<Apartment> findAll() {
-        return jdbcTemplate.query("SELECT Apartment.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, apartment_type, build_Material, is_sold, employee_id, seller_id FROM Apartment INNER JOIN Property ON Apartment.ID=Property.ID ORDER BY PRICE DESC", new ApartmentRowMapper());
+        return jdbcTemplate.query("SELECT Apartment.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, apartment_type, build_Material, sold, employee_id, seller_id FROM Apartment INNER JOIN Property ON Apartment.ID=Property.ID ORDER BY PRICE DESC", new ApartmentRowMapper());
 
     }
 
@@ -90,7 +90,7 @@ public class ApartmentDAO {
      * @return
      */
     public int insert(Apartment apartment) {
-        return jdbcTemplate.update("INSERT INTO Apartment (ID, APARTMENT_TYPE, BUILD_MATERIAL) " + "VALUES((SELECT id FROM Property WHERE id=?), ?, ?)",
+        return jdbcTemplate.update("INSERT INTO Apartment (ID, APARTMENT_TYPE, BUILD_MATERIAL) " + "VALUES((SELECT id FROM Property WHERE Property.id=?), ?, ?)",
                 apartment.getId(), apartment.getApartmentType(), apartment.getBuildMaterial());
 
     }

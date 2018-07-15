@@ -10,10 +10,7 @@ import com.gmail.alexander.realestatesofia.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -234,8 +231,15 @@ public class MainController {
      */
 
     @RequestMapping(value = "/showSellers", method = RequestMethod.GET)
-    public String showSellers(Model model) {
+    public String showSellers(@RequestParam(required = false) int id, Model model) {
+
         List<Seller> sellers = sellerDAO.findAll();
+        if(id==0) {
+            sellers = sellerDAO.findAll();
+        }
+        else {
+            sellers= sellerDAO.findBuyersByEmployeeId(id);
+        }
         model.addAttribute("sellers", sellers);
         return "showSellers";
     }
@@ -246,9 +250,16 @@ public class MainController {
      */
 
     @RequestMapping(value = "/showBuyers", method = RequestMethod.GET)
-    public String showBuyers(Model model) {
-        List<Buyer> buyers = buyerDAO.findAll();
+    public String showBuyers(@RequestParam(required = false) int id, Model model) {
+        List<Buyer> buyers;
+        if(id==0) {
+            buyers = buyerDAO.findAll();
+        }
+        else {
+                buyers = buyerDAO.findBuyersByEmployeeId(id);
+        }
         model.addAttribute("buyers", buyers);
+
         return "showBuyers";
     }
     /**

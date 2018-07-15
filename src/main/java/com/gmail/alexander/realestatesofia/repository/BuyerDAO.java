@@ -30,6 +30,7 @@ public class BuyerDAO {
      * This class is used to Map Data to The objects fields.
      */
     class BuyerRowMapper implements RowMapper<Buyer> {
+
         /**
          * Maps data to Object
          *
@@ -50,7 +51,6 @@ public class BuyerDAO {
             return buyer;
         }
     }
-
     /**
      * Finds all Records of Buyer
      *
@@ -60,6 +60,15 @@ public class BuyerDAO {
     public List<Buyer> findAll() {
         return jdbcTemplate.query("SELECT Buyer.id, budget, name, phone, employee_id FROM Buyer INNER JOIN Customer ON Buyer.ID=Customer.ID ", new BuyerRowMapper());
 
+    }
+
+    /**
+     * Gets a list of buyers by Employee`s id.
+     * @param id given employee`s id
+     * @return
+     */
+    public List<Buyer> findBuyersByEmployeeId(int id) {
+        return jdbcTemplate.query("SELECT Buyer.id, budget, name, phone, employee_id FROM Buyer INNER JOIN Customer ON Buyer.ID=Customer.ID WHERE Buyer.employee_id=?",  new Object[]{id}, new BuyerRowMapper());
     }
 
     /**

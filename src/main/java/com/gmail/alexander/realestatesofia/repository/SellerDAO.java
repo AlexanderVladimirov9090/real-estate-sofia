@@ -29,6 +29,7 @@ public class SellerDAO {
      * This class is used to Map Data to The objects fields.
      */
     class SellerRowMapper implements RowMapper<Seller> {
+
         /**
          * Maps data to Object
          *
@@ -46,7 +47,6 @@ public class SellerDAO {
             return seller;
         }
     }
-
     /**
      * Finds all Records of Seller
      *
@@ -55,6 +55,11 @@ public class SellerDAO {
 
     public List<Seller> findAll() {
         return jdbcTemplate.query("SELECT Seller.id, name, phone, employee_id FROM Seller INNER JOIN Customer ON Seller.ID=Customer.ID", new SellerRowMapper());
+    }
+
+    public List<Seller> findBuyersByEmployeeId(int id) {
+        return jdbcTemplate.query("SELECT Seller.id, name, phone, employee_id FROM Seller INNER JOIN Customer ON Seller.ID=Customer.ID WHERE Seller.employee_id=?",  new Object[]{id}, new SellerRowMapper());
+
     }
 
     /**
