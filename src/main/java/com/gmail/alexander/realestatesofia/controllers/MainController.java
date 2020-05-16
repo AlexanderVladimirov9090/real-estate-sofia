@@ -70,7 +70,7 @@ public class MainController {
      */
     @GetMapping("/registerEmployee")
     public String registerEmployee() {
-        return "registrationAgency";
+        return "registrationEmployee";
     }
 
     /**
@@ -80,7 +80,7 @@ public class MainController {
      */
     @GetMapping("/registerCustomer")
     public String registerCustomer() {
-        return "registrationAgency";
+        return "registrationCustomer";
     }
 
     /**
