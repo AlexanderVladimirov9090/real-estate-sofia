@@ -1,4 +1,4 @@
-package com.gmail.alexander.realestatesofia.entity.types;
+package com.gmail.alexander.realestatesofia.models.types;
 
 import java.util.HashMap;
 import java.util.Map;

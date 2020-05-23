@@ -1,17 +1,18 @@
 package com.gmail.alexander.realestatesofia.controllers;
 
-import com.gmail.alexander.realestatesofia.entity.abstracts.Customer;
-import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
-import com.gmail.alexander.realestatesofia.entity.concrete.Agency;
-import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
-import com.gmail.alexander.realestatesofia.entity.costumers.Buyer;
-import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
+import com.gmail.alexander.realestatesofia.models.abstracts.Customer;
+import com.gmail.alexander.realestatesofia.models.abstracts.Property;
+import com.gmail.alexander.realestatesofia.models.concrete.Agency;
+import com.gmail.alexander.realestatesofia.models.concrete.Employee;
+import com.gmail.alexander.realestatesofia.models.costumers.Buyer;
+import com.gmail.alexander.realestatesofia.models.costumers.Seller;
 import com.gmail.alexander.realestatesofia.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -166,6 +167,7 @@ public class MainController {
      * @return name of the page that will be loaded next.
      */
     @RequestMapping(value = "/registerSeller", method = RequestMethod.POST)
+    @ResponseBody
     public String registrationSellerDone(@ModelAttribute Seller seller, Model model) {
         sellerDAO.insert(seller);
         model.addAttribute("name", seller.getPhone());
@@ -181,10 +183,12 @@ public class MainController {
      */
 
     @RequestMapping(value = "/registerAgency", method = RequestMethod.POST)
-    public String registrationAgancyDone(@ModelAttribute Agency agency, Model model) {
+    @ResponseBody
+    public Agency registrationAgencyDone(@ModelAttribute Agency agency, Model model) {
         agencyDAO.insert(agency);
         model.addAttribute("name", agency.getName());
-        return "agency";
+        Agency record =agencyDAO.findTopByOrderByIdDesc();
+        return record;
     }
 
     /**
@@ -194,10 +198,11 @@ public class MainController {
      * @return name of the page that will display information to user.
      */
     @RequestMapping(value = "/showAgencies", method = RequestMethod.GET)
-    public String showAgencies(Model model) {
+    @ResponseBody
+    public List<Agency> showAgencies(Model model) {
         List<Agency> agencies = agencyDAO.findAll();
         model.addAttribute("agencies", agencies);
-        return "showAgencies";
+        return agencies;
     }
 
     /**
@@ -207,71 +212,80 @@ public class MainController {
      * @return name of the page that will display information to user.
      */
     @RequestMapping(value = "/showEmployees", method = RequestMethod.GET)
-    public String showEmployees(Model model) {
+    @ResponseBody
+    public List<Employee> showEmployees(Model model) {
         List<Employee> employees = employeeDAO.findAll();
         model.addAttribute("employees", employees);
-        return "showEmployees";
+        return employees;
     }
+
     /**
      * Shows all customers that are in the database.
+     *
      * @param model is used to send to the page collection of objects for display yo user.
      * @return name of the page that will display information to user.
      */
 
     @RequestMapping(value = "/showCustomers", method = RequestMethod.GET)
-    public String showCustomers(Model model) {
+    @ResponseBody
+    public List<Customer> showCustomers(Model model) {
         List<Customer> customers = customerDAO.findAll();
         model.addAttribute("customers", customers);
-        return "showCustomers";
+        return customers;
     }
+
     /**
      * Shows all sellers that are in the database.
+     *
      * @param model is used to send to the page collection of objects for display yo user.
      * @return name of the page that will display information to user.
      */
 
     @RequestMapping(value = "/showSellers", method = RequestMethod.GET)
-    public String showSellers(@RequestParam(required = false) int id, Model model) {
-
-        List<Seller> sellers = sellerDAO.findAll();
-        if(id==0) {
-            sellers = sellerDAO.findAll();
-        }
-        else {
-            sellers= sellerDAO.findBuyersByEmployeeId(id);
+    @ResponseBody
+    public List<Customer> showSellers(@RequestParam(required = false) Integer id, Model model) {
+        List<Customer> sellers = new ArrayList<>();
+        if (id == null) {
+            sellers.addAll(sellerDAO.findAll());
+        } else {
+            sellers.addAll(sellerDAO.findBuyersByEmployeeId(id));
         }
         model.addAttribute("sellers", sellers);
-        return "showSellers";
+        return sellers;
     }
+
     /**
      * Shows all buyers that are in the database.
+     *
      * @param model is used to send to the page collection of objects for display yo user.
      * @return name of the page that will display information to user.
      */
 
     @RequestMapping(value = "/showBuyers", method = RequestMethod.GET)
-    public String showBuyers(@RequestParam(required = false) int id, Model model) {
-        List<Buyer> buyers;
-        if(id==0) {
-            buyers = buyerDAO.findAll();
-        }
-        else {
-                buyers = buyerDAO.findBuyersByEmployeeId(id);
+    @ResponseBody
+    public List<Customer> showBuyers(@RequestParam(required = false) Integer id, Model model) {
+        List<Customer> buyers = new ArrayList<>();
+        if (id == null) {
+            buyers.addAll(buyerDAO.findAll());
+        } else {
+            buyers.addAll(buyerDAO.findBuyersByEmployeeId(id));
         }
         model.addAttribute("buyers", buyers);
-
-        return "showBuyers";
+        return buyers;
     }
+
     /**
      * Shows all properties that are in the database.
+     *
      * @param model is used to send to the page collection of objects for display yo user.
      * @return name of the page that will display information to user.
      */
 
     @RequestMapping(value = "/showProperties", method = RequestMethod.GET)
-    public String showProperties(Model model) {
+    @ResponseBody
+    public List<Property> showProperties(Model model) {
         List<Property> properties = propertyDAO.findAll();
         model.addAttribute("properties", properties);
-        return "showProperties";
+        return properties;
     }
 }

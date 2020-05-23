@@ -1,6 +1,7 @@
 package com.gmail.alexander.realestatesofia.repository;
 
-import com.gmail.alexander.realestatesofia.entity.concrete.ViewedRealEstate;
+import com.gmail.alexander.realestatesofia.models.concrete.Agency;
+import com.gmail.alexander.realestatesofia.models.concrete.ViewedRealEstate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -68,6 +69,10 @@ public class ViewedRealEstateDAO {
      */
     public ViewedRealEstate findById(int id) {
         return jdbcTemplate.queryForObject("SELECT * FROM Viewed_Real_Estate WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<ViewedRealEstate>(ViewedRealEstate.class));
+    }
+
+    public Agency findTopByOrderByIdDesc(){
+        return jdbcTemplate.queryForObject("SELECT * FROM Viewed_Real_Estate ORDER BY ID DESC LIMIT 1", new BeanPropertyRowMapper<Agency>(Agency.class));
     }
 
     /**

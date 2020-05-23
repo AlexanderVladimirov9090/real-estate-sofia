@@ -1,4 +1,4 @@
-package com.gmail.alexander.realestatesofia.entity.abstracts;
+package com.gmail.alexander.realestatesofia.models.abstracts;
 
 import javax.persistence.*;
 

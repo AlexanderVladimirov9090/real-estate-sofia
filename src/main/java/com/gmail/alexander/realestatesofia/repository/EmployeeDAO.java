@@ -1,6 +1,7 @@
 package com.gmail.alexander.realestatesofia.repository;
 
-import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
+import com.gmail.alexander.realestatesofia.models.concrete.Agency;
+import com.gmail.alexander.realestatesofia.models.concrete.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -70,6 +71,10 @@ public class EmployeeDAO {
      */
     public Employee findById(int id) {
         return jdbcTemplate.queryForObject("SELECT * FROM Employee WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<Employee>(Employee.class));
+    }
+
+    public Agency findTopByOrderByIdDesc(){
+        return jdbcTemplate.queryForObject("SELECT * FROM Employee ORDER BY ID DESC LIMIT 1", new BeanPropertyRowMapper<Agency>(Agency.class));
     }
 
     /**

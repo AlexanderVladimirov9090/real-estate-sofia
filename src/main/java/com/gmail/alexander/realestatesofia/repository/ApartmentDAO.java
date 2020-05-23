@@ -1,6 +1,6 @@
 package com.gmail.alexander.realestatesofia.repository;
 
-import com.gmail.alexander.realestatesofia.entity.realesates.Apartment;
+import com.gmail.alexander.realestatesofia.models.realesates.Apartment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -72,6 +72,10 @@ public class ApartmentDAO {
      */
     public Apartment findById(int id) {
         return jdbcTemplate.queryForObject("SELECT Apartment.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, apartment_type, build_Material FROM Apartment INNER JOIN Property ON Apartment.ID=Property.ID WHERE Property.ID=?", new Object[]{id}, new BeanPropertyRowMapper<Apartment>(Apartment.class));
+    }
+
+    public Apartment findTopByOrderByIdDesc(){
+        return jdbcTemplate.queryForObject("SELECT Apartment.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, apartment_type, build_Material FROM Apartment INNER JOIN Property ON Apartment.ID=Property.ID ORDER BY ID DESC LIMIT 1", new BeanPropertyRowMapper<Apartment>(Apartment.class));
     }
 
     /**

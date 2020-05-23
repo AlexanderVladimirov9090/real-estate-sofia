@@ -1,8 +1,8 @@
-package com.gmail.alexander.realestatesofia.entity.concrete;
+package com.gmail.alexander.realestatesofia.models.concrete;
 
-import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
-import com.gmail.alexander.realestatesofia.entity.costumers.Buyer;
-import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
+import com.gmail.alexander.realestatesofia.models.abstracts.Property;
+import com.gmail.alexander.realestatesofia.models.costumers.Buyer;
+import com.gmail.alexander.realestatesofia.models.costumers.Seller;
 
 import javax.persistence.*;
 import java.util.List;

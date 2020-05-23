@@ -1,23 +1,21 @@
 package com.gmail.alexander.realestatesofia;
 
-import com.gmail.alexander.realestatesofia.entity.abstracts.Customer;
-import com.gmail.alexander.realestatesofia.entity.abstracts.Property;
-import com.gmail.alexander.realestatesofia.entity.concrete.Agency;
-import com.gmail.alexander.realestatesofia.entity.concrete.Employee;
-import com.gmail.alexander.realestatesofia.entity.concrete.ViewedRealEstate;
-import com.gmail.alexander.realestatesofia.entity.costumers.Buyer;
-import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
-import com.gmail.alexander.realestatesofia.entity.realesates.Apartment;
-import com.gmail.alexander.realestatesofia.entity.realesates.House;
-import com.gmail.alexander.realestatesofia.entity.realesates.Land;
-import com.gmail.alexander.realestatesofia.entity.types.*;
+import com.gmail.alexander.realestatesofia.models.abstracts.Customer;
+import com.gmail.alexander.realestatesofia.models.abstracts.Property;
+import com.gmail.alexander.realestatesofia.models.concrete.Agency;
+import com.gmail.alexander.realestatesofia.models.concrete.Employee;
+import com.gmail.alexander.realestatesofia.models.costumers.Buyer;
+import com.gmail.alexander.realestatesofia.models.costumers.Seller;
+import com.gmail.alexander.realestatesofia.models.realesates.Apartment;
+import com.gmail.alexander.realestatesofia.models.realesates.House;
+import com.gmail.alexander.realestatesofia.models.realesates.Land;
+import com.gmail.alexander.realestatesofia.models.types.*;
 import com.gmail.alexander.realestatesofia.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @SpringBootApplication

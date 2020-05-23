@@ -1,6 +1,7 @@
 package com.gmail.alexander.realestatesofia.repository;
 
-import com.gmail.alexander.realestatesofia.entity.costumers.Seller;
+import com.gmail.alexander.realestatesofia.models.concrete.Agency;
+import com.gmail.alexander.realestatesofia.models.costumers.Seller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -60,6 +61,10 @@ public class SellerDAO {
     public List<Seller> findBuyersByEmployeeId(int id) {
         return jdbcTemplate.query("SELECT Seller.id, name, phone, employee_id FROM Seller INNER JOIN Customer ON Seller.ID=Customer.ID WHERE Seller.employee_id=?",  new Object[]{id}, new SellerRowMapper());
 
+    }
+
+    public Agency findTopByOrderByIdDesc(){
+        return jdbcTemplate.queryForObject("SELECT Seller.id, name, phone, employee_id FROM Seller INNER JOIN Customer ON Seller.ID=Customer.ID ORDER BY ID DESC LIMIT 1", new BeanPropertyRowMapper<Agency>(Agency.class));
     }
 
     /**
