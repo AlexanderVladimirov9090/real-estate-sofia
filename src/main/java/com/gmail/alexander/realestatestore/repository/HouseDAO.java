@@ -2,6 +2,7 @@ package com.gmail.alexander.realestatestore.repository;
 
 import com.gmail.alexander.realestatestore.models.concrete.Agency;
 import com.gmail.alexander.realestatestore.models.realesates.House;
+import com.gmail.alexander.realestatestore.repository.rowmappers.HouseRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,44 +34,12 @@ public class HouseDAO {
     }
 
     /**
-     * This class is used to Map Data to The objects fields.
-     */
-    class HouseRowMapper implements RowMapper<House> {
-        /**
-         * Maps data to Object
-         *
-         * @param rs     is used to store all data from database and then extracted to the object`s fields.
-         * @param rowNum Store what number of a row are we in.
-         * @return Object from given class.
-         * @throws SQLException
-         */
-        @Override
-        public House mapRow(ResultSet rs, int rowNum) throws SQLException {
-            House house = new House();
-            house.setAddress(rs.getString("address"));
-            house.setPrice(rs.getDouble("price"));
-            house.setDescription(rs.getString("description"));
-            house.setSizeOfRealEstate(rs.getInt("SIZE_OF_REAL_ESTATE"));
-            house.setRealEstateType(rs.getString("REAL_ESTATE_TYPE"));
-            house.setHouseType(rs.getString("house_type"));
-            house.setBuildMaterial("build_Material");
-            house.setParkingSpace(rs.getInt("parking_space"));
-            house.setYardSize(rs.getInt("yard_size"));
-            house.getSeller().setId(rs.getInt("seller_id"));
-            house.getEmployee().setId(rs.getInt("employee_id"));
-            return house;
-        }
-    }
-
-    /**
      * Finds all Records of House
      *
      * @return
      */
-
     public List<House> findAll() {
         return jdbcTemplate.query("SELECT House.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, house_type, build_Material, parking_space, yard_size, seller_id, employee_id FROM House INNER JOIN Property ON House.ID=Property.ID ORDER BY PRICE DESC", new HouseRowMapper());
-
     }
 
     /**
@@ -83,7 +52,12 @@ public class HouseDAO {
         return jdbcTemplate.queryForObject("SELECT House.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, house_type, build_Material, parking_space, yard_size, seller_id, employee_id FROM House INNER JOIN Property ON House.ID=Property.ID WHERE Property.ID=?", new Object[]{id}, new BeanPropertyRowMapper<House>(House.class));
     }
 
-    public Agency findTopByOrderByIdDesc(){
+    /**
+     * Fetching last recoded data.
+     *
+     * @return
+     */
+    public Agency findTopByOrderByIdDesc() {
         return jdbcTemplate.queryForObject("SELECT House.id, address, price, description, SIZE_OF_REAL_ESTATE, REAL_ESTATE_TYPE, house_type, build_Material, parking_space, yard_size, seller_id, employee_id FROM House INNER JOIN Property ON House.ID=Property.ID ORDER BY ID DESC LIMIT 1", new BeanPropertyRowMapper<Agency>(Agency.class));
     }
 
@@ -100,6 +74,7 @@ public class HouseDAO {
 
     /**
      * This is used to insert record to the database.
+     *
      * @param house
      * @return
      */
@@ -113,6 +88,7 @@ public class HouseDAO {
 
     /**
      * Updates record from database by id.
+     *
      * @param house updated version of the record.
      * @return confirmation code.
      */

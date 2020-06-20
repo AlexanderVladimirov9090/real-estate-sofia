@@ -2,6 +2,7 @@ package com.gmail.alexander.realestatestore.repository;
 
 import com.gmail.alexander.realestatestore.models.concrete.Agency;
 import com.gmail.alexander.realestatestore.models.concrete.ViewedRealEstate;
+import com.gmail.alexander.realestatestore.repository.rowmappers.ViewedRealEstateRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,34 +29,10 @@ public class ViewedRealEstateDAO {
     private JdbcTemplate jdbcTemplate;
 
     /**
-     * This class is used to Map Data to The objects fields.
-     */
-    class ViewedRealEstateRowMapper implements RowMapper<ViewedRealEstate> {
-        /**
-         * Maps data to Object
-         *
-         * @param rs     is used to store all data from database and then extracted to the object`s fields.
-         * @param rowNum Store what number of a row are we in.
-         * @return Object from given class.
-         * @throws SQLException
-         */
-        @Override
-        public ViewedRealEstate mapRow(ResultSet rs, int rowNum) throws SQLException {
-            ViewedRealEstate viewedRealEstate = new ViewedRealEstate();
-            viewedRealEstate.setId(rs.getInt("id"));
-            viewedRealEstate.getBuyer().setId(rs.getInt("buyer_id"));
-            viewedRealEstate.getPropertyForView().setId(rs.getInt("property_id  "));
-            viewedRealEstate.setRealEstateViewingDate(rs.getTimestamp("date_of_view"));
-            return viewedRealEstate;
-        }
-    }
-
-    /**
      * Finds all Records of ViewedRealEstate
      *
      * @return collection of viewed by buyer properties.
      */
-
     public List<ViewedRealEstate> findAll() {
         return jdbcTemplate.query("SELECT * FROM Viewed_Real_Estate", new ViewedRealEstateRowMapper());
 
@@ -71,6 +48,11 @@ public class ViewedRealEstateDAO {
         return jdbcTemplate.queryForObject("SELECT * FROM Viewed_Real_Estate WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<ViewedRealEstate>(ViewedRealEstate.class));
     }
 
+    /**
+     * Fetching last recoded data.
+     *
+     * @return
+     */
     public Agency findTopByOrderByIdDesc(){
         return jdbcTemplate.queryForObject("SELECT * FROM Viewed_Real_Estate ORDER BY ID DESC LIMIT 1", new BeanPropertyRowMapper<Agency>(Agency.class));
     }
@@ -81,7 +63,6 @@ public class ViewedRealEstateDAO {
      * @param id for deletion
      * @return confirmation code.
      */
-
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM Viewed_Real_Estate WHERE id=?", id);
     }

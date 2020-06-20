@@ -2,6 +2,7 @@ package com.gmail.alexander.realestatestore.repository;
 
 import com.gmail.alexander.realestatestore.models.abstracts.Customer;
 import com.gmail.alexander.realestatestore.models.concrete.Agency;
+import com.gmail.alexander.realestatestore.repository.rowmappers.CustomerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,33 +25,10 @@ public class CustomerDAO {
     private JdbcTemplate jdbcTemplate;
 
     /**
-     * This class is used to Map Data to The objects fields.
-     */
-    class CustomerRowMapper implements RowMapper<Customer> {
-        /**
-         * Maps data to Object
-         *
-         * @param rs     is used to store all data from database and then extracted to the object`s fields.
-         * @param rowNum Store what number of a row are we in.
-         * @return Object from given class.
-         * @throws SQLException
-         */
-        @Override
-        public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Customer customer = new Customer();
-            customer.setId(rs.getInt("id"));
-            customer.setPhone(rs.getString("phone"));
-            customer.setName(rs.getString("name"));
-            return customer;
-        }
-    }
-
-    /**
      * Finds all Records of Customer
      *
      * @return
      */
-
     public List<Customer> findAll() {
         return jdbcTemplate.query("SELECT * FROM Customer", new CustomerRowMapper());
     }
@@ -65,7 +43,7 @@ public class CustomerDAO {
         return jdbcTemplate.queryForObject("SELECT * FROM Customer WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<Customer>(Customer.class));
     }
 
-    public Customer findTopByOrderByIdDesc(){
+    public Customer findTopByOrderByIdDesc() {
         return jdbcTemplate.queryForObject("SELECT * FROM Customer ORDER BY ID DESC LIMIT 1", new BeanPropertyRowMapper<Customer>(Customer.class));
     }
 
@@ -75,7 +53,6 @@ public class CustomerDAO {
      * @param id for deletion
      * @return
      */
-
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM Customer WHERE id=?", id);
     }
@@ -86,10 +63,8 @@ public class CustomerDAO {
      * @param customer
      * @return
      */
-
     public int insert(Customer customer) {
-        return jdbcTemplate.update("INSERT INTO Customer ( NAME, PHONE) " + "VALUES( ?, ?)",
-                customer.getName(), customer.getPhone());
+        return jdbcTemplate.update("INSERT INTO Customer ( NAME, PHONE) " + "VALUES( ?, ?)", customer.getName(), customer.getPhone());
     }
 
 
@@ -100,8 +75,6 @@ public class CustomerDAO {
      * @return confirmation code.
      */
     public int update(Customer customer) {
-        return jdbcTemplate.update("UPDATE Customer" + "SET name=?, phone=?  " + "WHERE id=?",
-                customer.getName(), customer.getPhone(), customer.getId());
-
+        return jdbcTemplate.update("UPDATE Customer" + "SET name=?, phone=?  " + "WHERE id=?", customer.getName(), customer.getPhone(), customer.getId());
     }
 }

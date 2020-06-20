@@ -2,6 +2,7 @@ package com.gmail.alexander.realestatestore.repository;
 
 import com.gmail.alexander.realestatestore.models.abstracts.Property;
 import com.gmail.alexander.realestatestore.models.concrete.Agency;
+import com.gmail.alexander.realestatestore.repository.rowmappers.PropertyRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,32 +25,6 @@ public class PropertyDAO {
     private JdbcTemplate jdbcTemplate;
 
     /**
-     * This class is used to Map Data to The objects fields.
-     */
-    class PropertyRowMapper implements RowMapper<Property> {
-        /**
-         * Maps data to Object
-         *
-         * @param rs     is used to store all data from database and then extracted to the object`s fields.
-         * @param rowNum Store what number of a row are we in.
-         * @return Object from given class.
-         * @throws SQLException
-         */
-        @Override
-        public Property mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Property property = new Property();
-            property.setAddress(rs.getString("address"));
-            property.setPrice(rs.getDouble("price"));
-            property.setDescription(rs.getString("description"));
-            property.setSizeOfRealEstate(rs.getInt("SIZE_OF_REAL_ESTATE"));
-            property.getSeller().setId(rs.getInt("seller_id"));
-            property.getEmployee().setId(rs.getInt("employee_id"));
-            property.setSold(rs.getBoolean("sold"));
-            return property;
-        }
-    }
-
-    /**
      * Finds all Records of Property
      *
      * @return
@@ -69,7 +44,12 @@ public class PropertyDAO {
         return jdbcTemplate.queryForObject("SELECT * FROM Property WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<Property>(Property.class));
     }
 
-    public Agency findTopByOrderByIdDesc(){
+    /**
+     * Fetching last recoded data.
+     *
+     * @return
+     */
+    public Agency findTopByOrderByIdDesc() {
         return jdbcTemplate.queryForObject("SELECT * FROM Property ORDER BY ID DESC LIMIT 1", new BeanPropertyRowMapper<Agency>(Agency.class));
     }
 
@@ -79,7 +59,6 @@ public class PropertyDAO {
      * @param id for deletion
      * @return
      */
-
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM Property WHERE id=?", id);
     }
@@ -90,7 +69,6 @@ public class PropertyDAO {
      * @param property
      * @return
      */
-
     public int insert(Property property) {
         return jdbcTemplate.update("INSERT INTO Property (address, description, sold ,price, REAL_ESTATE_TYPE, SIZE_OF_REAL_ESTATE, employee_id, seller_id) " + "VALUES(?, ?, ?, ?, ?, ?, (SELECT EMPLOYEE_ID FROM Seller WHERE id=?), (SELECT ID FROM Seller WHERE id=?) )",
                 property.getAddress(), property.getDescription(), property.getSold(), property.getPrice(), property.getRealEstateType(), property.getSizeOfRealEstate(), property.getSeller().getId(), property.getSeller().getId());
