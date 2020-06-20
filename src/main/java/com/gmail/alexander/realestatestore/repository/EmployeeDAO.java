@@ -2,6 +2,7 @@ package com.gmail.alexander.realestatestore.repository;
 
 import com.gmail.alexander.realestatestore.models.concrete.Agency;
 import com.gmail.alexander.realestatestore.models.concrete.Employee;
+import com.gmail.alexander.realestatestore.repository.rowmappers.EmployeeRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,34 +32,10 @@ public class EmployeeDAO {
     }
 
     /**
-     * This class is used to Map Data to The objects fields.
-     */
-    class EmployeeRowMapper implements RowMapper<Employee> {
-        /**
-         * Maps data to Object
-         *
-         * @param rs     is used to store all data from database and then extracted to the object`s fields.
-         * @param rowNum Store what number of a row are we in.
-         * @return Object from given class.
-         * @throws SQLException
-         */
-        @Override
-        public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Employee employee = new Employee();
-            employee.setId(rs.getInt("id"));
-            employee.setName(rs.getString("name"));
-            employee.setPhone(rs.getString("phone"));
-            employee.getAgency().setId(rs.getInt("agency_id"));
-            return employee;
-        }
-    }
-
-    /**
      * Finds all Records of Employee
      *
      * @return
      */
-
     public List<Employee> findAll() {
         return jdbcTemplate.query("SELECT * FROM Employee", new EmployeeRowMapper());
     }
@@ -73,7 +50,12 @@ public class EmployeeDAO {
         return jdbcTemplate.queryForObject("SELECT * FROM Employee WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<Employee>(Employee.class));
     }
 
-    public Employee findTopByOrderByIdDesc(){
+    /**
+     * Fetching last recoded data.
+     *
+     * @return
+     */
+    public Employee findTopByOrderByIdDesc() {
         return jdbcTemplate.queryForObject("SELECT * FROM Employee ORDER BY ID DESC LIMIT 1", new BeanPropertyRowMapper<Employee>(Employee.class));
     }
 
@@ -83,26 +65,26 @@ public class EmployeeDAO {
      * @param id for deletion
      * @return
      */
-
     public int deleteById(int id) {
         return jdbcTemplate.update("DELETE FROM Employee WHERE id=?", id);
     }
 
     /**
      * This is used to insert record to the database.
+     *
      * @param employee
      * @return
      */
-
     public int insert(Employee employee) {
-            employee.setId(countEmployees()+1);
+        employee.setId(countEmployees() + 1);
         return jdbcTemplate.update("INSERT INTO Employee ( NAME, PHONE, agency_id) " + "VALUES(?, ?, (SELECT id FROM AGENCY WHERE id=? ) )",
-                 employee.getName(), employee.getPhone(), employee.getAgency().getId());
+                employee.getName(), employee.getPhone(), employee.getAgency().getId());
 
     }
 
     /**
      * Updates record from database by id.
+     *
      * @param employee updated version of the record.
      * @return confirmation code.
      */
@@ -114,18 +96,20 @@ public class EmployeeDAO {
 
     /**
      * Gives random id of an employee
+     *
      * @return random id.
      */
     public int randomEmployee() {
         //counts employees
         int countedOfEmployees = countEmployees();
         Random r = new Random();
-         //returns random id.
+        //returns random id.
         return r.nextInt((countedOfEmployees - 1) + 1) + 1;
     }
 
     /**
      * Counts the employees in the database.
+     *
      * @return how many employees are.
      */
     private int countEmployees() {

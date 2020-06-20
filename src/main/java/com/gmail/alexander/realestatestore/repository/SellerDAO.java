@@ -4,6 +4,7 @@ import com.gmail.alexander.realestatestore.models.concrete.Agency;
 import com.gmail.alexander.realestatestore.models.concrete.Employee;
 import com.gmail.alexander.realestatestore.models.costumers.Buyer;
 import com.gmail.alexander.realestatestore.models.costumers.Seller;
+import com.gmail.alexander.realestatestore.repository.rowmappers.SellerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,43 +30,30 @@ public class SellerDAO {
     private JdbcTemplate jdbcTemplate;
 
     /**
-     * This class is used to Map Data to The objects fields.
-     */
-    class SellerRowMapper implements RowMapper<Seller> {
-
-        /**
-         * Maps data to Object
-         *
-         * @param rs     is used to store all data from database and then extracted to the object`s fields.
-         * @param rowNum Store what number of a row are we in.
-         * @return Object from given class.
-         * @throws SQLException
-         */
-        @Override
-        public Seller mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Seller seller = new Seller();
-            seller.setId(rs.getInt("id"));
-            seller.setName(rs.getString("name"));
-            seller.setPhone(rs.getString("phone"));
-            return seller;
-        }
-    }
-    /**
      * Finds all Records of Seller
      *
      * @return
      */
-
     public List<Seller> findAll() {
         return jdbcTemplate.query("SELECT Seller.id, name, phone, employee_id FROM Seller INNER JOIN Customer ON Seller.ID=Customer.ID", new SellerRowMapper());
     }
 
+    /**
+     * Fetching recoded by id.
+     *
+     * @return
+     */
     public List<Seller> findBuyersByEmployeeId(int id) {
-        return jdbcTemplate.query("SELECT Seller.id, name, phone, employee_id FROM Seller INNER JOIN Customer ON Seller.ID=Customer.ID WHERE Seller.employee_id=?",  new Object[]{id}, new SellerRowMapper());
+        return jdbcTemplate.query("SELECT Seller.id, name, phone, employee_id FROM Seller INNER JOIN Customer ON Seller.ID=Customer.ID WHERE Seller.employee_id=?", new Object[]{id}, new SellerRowMapper());
 
     }
 
-    public Seller findTopByOrderByIdDesc(){
+    /**
+     * Fetching last recoded data.
+     *
+     * @return
+     */
+    public Seller findTopByOrderByIdDesc() {
         return jdbcTemplate.queryForObject("SELECT Seller.id, name, phone, employee_id FROM Seller INNER JOIN Customer ON Seller.ID=Customer.ID ORDER BY ID DESC LIMIT 1", new BeanPropertyRowMapper<Seller>(Seller.class));
     }
 

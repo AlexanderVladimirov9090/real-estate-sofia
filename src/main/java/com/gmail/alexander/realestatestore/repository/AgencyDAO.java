@@ -1,6 +1,7 @@
 package com.gmail.alexander.realestatestore.repository;
 
 import com.gmail.alexander.realestatestore.models.concrete.Agency;
+import com.gmail.alexander.realestatestore.repository.rowmappers.AgencyRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,30 +28,6 @@ public class AgencyDAO {
     private JdbcTemplate jdbcTemplate;
 
     /**
-     * This class is used to Map Data to The objects fields.
-     */
-    class AgencyRowMapper implements RowMapper<Agency> {
-        /**
-         * Maps data to Object
-         *
-         * @param rs     is used to store all data from database and then extracted to the object`s fields.
-         * @param rowNum Store what number of a row are we in.
-         * @return Object from given class.
-         * @throws SQLException
-         */
-        @Override
-        public Agency mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Agency agency = new Agency();
-            agency.setId(rs.getInt("id"));
-            agency.setName(rs.getString("name"));
-            agency.setAddress("address");
-            agency.setPhone("phone");
-
-            return agency;
-        }
-    }
-
-    /**
      * Finds all Records of Agency
      *
      * @return
@@ -69,7 +46,7 @@ public class AgencyDAO {
         return jdbcTemplate.queryForObject("SELECT * FROM Agency WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<Agency>(Agency.class));
     }
 
-    public Agency findTopByOrderByIdDesc(){
+    public Agency findTopByOrderByIdDesc() {
         return jdbcTemplate.queryForObject("SELECT * FROM Agency ORDER BY ID DESC LIMIT 1", new BeanPropertyRowMapper<Agency>(Agency.class));
     }
 
@@ -90,8 +67,7 @@ public class AgencyDAO {
      * @return
      */
     public int insert(Agency agency) {
-        return jdbcTemplate.update("INSERT INTO Agency ( name, address, Phone) " + "VALUES(  ?, ?, ?)",
-                agency.getName(), agency.getAddress(), agency.getPhone());
+        return jdbcTemplate.update("INSERT INTO Agency ( name, address, Phone) " + "VALUES(  ?, ?, ?)", agency.getName(), agency.getAddress(), agency.getPhone());
     }
 
     /**
@@ -101,7 +77,6 @@ public class AgencyDAO {
      * @return confirmation code.
      */
     public int update(Agency agency) {
-        return jdbcTemplate.update("UPDATE Agency " + "SET name=?, address=?, Phone=?  " + "WHERE id=?",
-                agency.getName(), agency.getAddress(), agency.getPhone(), agency.getId());
+        return jdbcTemplate.update("UPDATE Agency " + "SET name=?, address=?, Phone=?  " + "WHERE id=?", agency.getName(), agency.getAddress(), agency.getPhone(), agency.getId());
     }
 }
